@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tomandesMSH</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-muted: #f6f8fa;
+    --fg: #1f2328;
+    --fg-muted: #59636e;
+    --border: #d1d9e0;
+    --border-muted: #d1d9e0b3;
+    --link: #0969da;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --bg-muted: #151b23;
+      --fg: #f0f6fc;
+      --fg-muted: #9198a1;
+      --border: #3d444d;
+      --border-muted: #3d444db3;
+      --link: #4493f8;
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 32px 16px;
+  }
+  .wrap { max-width: 1012px; margin: 0 auto; }
+
+  /* Rámeček README jako na profilu */
+  .readme {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .readme-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-muted);
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    color: var(--fg-muted);
+  }
+  .readme-head svg { fill: currentColor; flex: none; }
+  .readme-head b { color: var(--fg); font-weight: 600; }
+
+  .markdown-body { padding: 32px; }
+  .markdown-body > :first-child { margin-top: 0; }
+  .markdown-body img { max-width: 100%; vertical-align: middle; }
+  .markdown-body a { color: var(--link); text-decoration: none; }
+  .markdown-body a:hover { text-decoration: underline; }
+
+  .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5 {
+    margin: 24px 0 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .markdown-body h2 {
+    font-size: 1.5em;
+    padding-bottom: .3em;
+    border-bottom: 1px solid var(--border-muted);
+  }
+  .markdown-body h3 { font-size: 1.25em; }
+  .markdown-body h4 { font-size: 1em; }
+  .markdown-body h5 { font-size: .875em; }
+
+  .center { text-align: center; }
+  .card { width: 100%; max-width: 620px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 4px; }
+  .badges img { height: 28px; }
+  .icons { margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <article class="readme">
+    <div class="readme-head">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+      <span>tomandesMSH / <b>README.md</b></span>
+    </div>
+
+    <div class="markdown-body">
+      <div class="center">
+        <a href="https://github.com/tomandesMSH/neofetch-readme">
+          <img class="card" src="https://neofetch-readme.vercel.app/api/svg?user=tomandesMSH&os=Tiny11%2C+CachyOS&school=SO%C5%A0+EDUCAnet+Brno&frontend=HTML%2C+CSS%2C+JS%2C+TS&backend=Python%2C+C%23%2C+Lua&ai=Claude+Code%2C+Codex&database=Supabase&editor=Visual+Studio+%28Code%29&icons=javascript%2Ctypescript%2Cnodedotjs%2Cpython%2Cgit%2Clinux%2Chtml5%2Ccss3%2Cbootstrap%2Cblender%2Cvercel" alt="tomandesMSH neofetch profile card">
+        </a>
+      </div>
+
+      <h2>About Me</h2>
+
+      <h4>Zajímám se o technologie, vývoj softwaru a herní design.</h4>
+
+      <h5>Tvořím webové projekty v HTML/CSS/JS, experimentuji s Pythonem a C# a občas čaruji s Assembly kódem 🧙. Umím něco málo v Blenderu.</h5>
+
+      <h5>Baví mě místa, kde se potkává kreativita s technikou, ať už jde o herní mechaniky, interaktivní weby nebo 3D grafiku.</h5>
+
+      <h5>Jsem rhythm game hráč, občasný modder a systémový nerd: registry, gpedit a podobné programy se zastaralým GUI jsou pro mě denním chlebem.</h5>
+
+      <h3>Contact</h3>
+
+      <div class="badges">
+        <a href="https://github.com/tomandesMSH"><img src="https://img.shields.io/badge/GitHub-14163C?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+        <a href="https://www.instagram.com/thom.vaa"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"></a>
+        <img src="https://img.shields.io/badge/Discord-thom.va-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord: thom.va">
+        <a href="mailto:tomandes@tuta.io"><img src="https://img.shields.io/badge/Email-tomandes%40tuta.io-434343?style=for-the-badge&logo=tuta&logoColor=white" alt="Email: tomandes@tuta.io"></a>
+        <a href="mailto:tomandesmsh@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"></a>
+      </div>
+
+      <div class="center icons">
+        <img src="https://skillicons.dev/icons?i=python,cs,lua,html,css,js,ts,bootstrap,powershell,windows,blender,vercel&perline=13" alt="Python, C#, Lua, HTML, CSS, JS, TS, Bootstrap, PowerShell, Windows, Blender, Vercel">
+      </div>
+    </div>
+  </article>
+</div>
+</body>
+</html>
