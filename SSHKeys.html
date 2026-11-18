@@ -5,33 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSH bez hesla</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@400;500;600&display=swap">
 <style>
   :root{
+    /* neutrální rampa, lehce teplá jako papírový tahák */
     --bg:#141416;
-    --surface:#1d1d20;
-    --surface-2:#26262a;
+    --band:#0f0f10;
+    --surface:#1b1b1e;
+    --surface-2:#232326;
+    --line:rgba(236,231,218,0.08);
+    --line-strong:rgba(236,231,218,0.14);
     --text:#ece7da;
-    --text-soft:#d8d3c7;
-    --muted:#a8a297;
-    --line:#2c2c30;
-    --accent:#ece7da;
-    --on-accent:#141416;
-    --band:#0b0b0c;
-    --band-line:#2c2c30;
-    --band-soft:#1a1a1d;
-    --priv:#5eff9e;
-    --priv-soft:rgba(94,255,158,0.08);
-    --max:1080px;
-    --radius:14px;
+    --text-soft:#c9c4b8;
+    --muted:#9a958b;
 
-    --code-bg:#2b2b2d;
-    --code-bg-2:#242426;
+    /* podpis: zelená = privátní klíč, nic jiného */
+    --priv:#5eff9e;
+
+    --code-bg:#1f1f22;
     --code-text:#d9d9d9;
     --code-muted:#8d8d8f;
     --code-kw:#e391d9;
-    --code-flag:#5eff9e;
-    --code-str:#8fd0a8;
+    --code-flag:#9cc2f5;
+    --code-str:#dcc08c;
+
+    --max:1080px;
+    --ease:cubic-bezier(0.22, 1, 0.36, 1);
 
     --sans:'Inter','Segoe UI', system-ui, sans-serif;
     --serif:'Fraunces', Georgia, serif;
@@ -50,15 +49,17 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  a{color:var(--text);}
+  a{color:var(--text); text-decoration-color:var(--line-strong); text-underline-offset:3px; transition:text-decoration-color .15s var(--ease);}
+  a:hover{text-decoration-color:var(--text);}
   a:focus-visible, button:focus-visible{
-    outline:2px solid var(--accent);
+    outline:2px solid var(--text);
     outline-offset:2px;
+    border-radius:4px;
   }
 
   h1,h2,h3{
     font-family:var(--serif);
-    font-weight:600;
+    font-weight:500;
     text-wrap:balance;
     color:var(--text);
     margin:0;
@@ -66,18 +67,31 @@
 
   code.path{
     font-family:var(--mono);
-    font-size:0.9em;
+    font-size:0.875em;
     background:var(--surface-2);
-    padding:.1em .35em;
+    padding:2px 6px;
     border-radius:4px;
     color:var(--text-soft);
+  }
+
+  kbd{
+    font-family:var(--mono);
+    font-size:12px;
+    line-height:1;
+    color:var(--text);
+    background:var(--surface-2);
+    border:1px solid var(--line-strong);
+    border-bottom-width:2px;
+    border-radius:4px;
+    padding:2px 6px;
+    white-space:nowrap;
   }
 
   /* ---------- hero band ---------- */
   .band{
     background:var(--band);
-    border-bottom:1px solid var(--band-line);
-    padding:3.4rem 1.5rem 3rem;
+    border-bottom:1px solid var(--line);
+    padding:56px 24px 48px;
   }
   .band-inner{
     max-width:var(--max);
@@ -85,52 +99,54 @@
   }
   .eyebrow{
     font-family:var(--mono);
-    font-size:0.78rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--priv);
-    margin:0 0 1rem;
+    font-size:12px;
+    color:var(--muted);
+    margin:0 0 16px;
   }
+  .eyebrow a{color:var(--text-soft); text-decoration:none;}
+  .eyebrow a:hover{color:var(--text);}
   h1.title{
-    font-size:clamp(2.1rem, 4.4vw, 3rem);
-    letter-spacing:-0.01em;
-    margin-bottom:0.9rem;
+    font-size:clamp(36px, 4.4vw, 48px);
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin-bottom:16px;
   }
   p.lede{
-    font-family:var(--sans);
-    font-size:1.08rem;
-    color:var(--muted);
-    max-width:60ch;
+    font-size:18px;
+    line-height:28px;
+    color:var(--text-soft);
+    max-width:36rem;
     margin:0;
+  }
+  p.byline{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    margin:16px 0 0;
   }
 
   /* ---------- layout shell ---------- */
   .shell{
     display:grid;
-    grid-template-columns: 220px minmax(0,1fr);
-    gap:3rem;
+    grid-template-columns: 200px minmax(0,1fr);
+    gap:48px;
     max-width:var(--max);
     margin:0 auto;
-    padding:3rem 1.5rem 6rem;
+    padding:48px 24px 96px;
     align-items:start;
   }
   @media (max-width: 880px){
-    .shell{grid-template-columns:1fr;}
+    .shell{grid-template-columns:minmax(0,1fr); gap:32px; padding-top:32px;}
   }
 
   nav.toc{
     position:sticky;
-    top:1.5rem;
-    border-left:3px solid var(--accent);
-    padding-left:1rem;
+    top:24px;
   }
   nav.toc .toc-label{
-    font-family:var(--mono);
+    font-size:12px;
     color:var(--muted);
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    font-size:0.7rem;
-    margin:0 0 0.9rem;
+    margin:0 0 8px;
   }
   nav.toc ol{
     list-style:none;
@@ -138,149 +154,213 @@
     padding:0;
     display:flex;
     flex-direction:column;
-    gap:0.6rem;
+    gap:2px;
+    border-left:1px solid var(--line-strong);
   }
+  nav.toc li{margin:0;}
   nav.toc a{
-    font-size:0.86rem;
+    display:block;
+    font-size:14px;
+    line-height:20px;
+    padding:6px 0 6px 12px;
+    margin-left:-1px;
+    border-left:1px solid transparent;
     color:var(--muted);
     text-decoration:none;
-    transition:color .15s ease;
+    transition:color .15s var(--ease), border-color .15s var(--ease);
   }
-  nav.toc a:hover{color:var(--text);}
+  nav.toc a:hover{color:var(--text-soft);}
   nav.toc li.active a{
-    color:var(--priv);
+    color:var(--text);
+    border-left-color:var(--text);
   }
   @media (max-width: 880px){
-    nav.toc{position:static; margin-bottom:0.5rem;}
-    nav.toc ol{columns:2; column-gap:1.5rem;}
+    nav.toc{position:static;}
+    nav.toc ol{display:block; columns:2; column-gap:24px;}
   }
 
   main{min-width:0;}
 
-  section{margin-top:3.4rem; scroll-margin-top:1.5rem;}
+  section{margin-top:56px; scroll-margin-top:24px;}
   section:first-child{margin-top:0;}
   section h2{
-    font-size:1.5rem;
-    margin:0 0 1.2rem;
-    padding-bottom:0.8rem;
+    font-size:24px;
+    line-height:1.25;
+    margin:0 0 20px;
+    padding-bottom:12px;
     border-bottom:1px solid var(--line);
+  }
+  .num{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--muted);
+    margin-right:8px;
+    font-variant-numeric:tabular-nums;
+    vertical-align:middle;
   }
 
   p{max-width:68ch;}
-  ul{padding-left:1.3rem;}
-  li{margin-bottom:0.4rem;}
+  ul{padding-left:20px;}
+  li{margin-bottom:8px;}
   strong{color:var(--text); font-weight:600;}
-  strong.priv{color:var(--priv);}
+  strong.priv{color:var(--priv); font-weight:500;}
+  .aside{color:var(--muted); font-size:14px;}
 
-  /* ---------- principle diagram ---------- */
-  .principle{
+  /* ---------- principle diagram (hlavní moment stránky) ---------- */
+  .diagram{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 96px minmax(0,1fr);
+    align-items:stretch;
+    margin:24px 0 24px;
+  }
+  .machine{
+    min-width:0;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:8px;
+  }
+  .machine-head{
     display:flex;
-    flex-direction:column;
-    gap:0;
-    margin:1.6rem 0 1.2rem;
-    border-left:1px solid var(--line);
-    padding-left:1.3rem;
-  }
-  .principle .box{
-    padding:0.9rem 0;
-  }
-  .principle .box + .box{
-    border-top:1px solid var(--line);
-  }
-  .principle .box h3{
-    font-family:var(--mono);
-    font-size:0.72rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    margin:0 0 0.5rem;
-    color:var(--muted);
+    align-items:center;
+    gap:8px;
+    padding:8px 8px 12px;
+    font-size:14px;
     font-weight:500;
-  }
-  .principle .box p{margin:0; font-size:0.92rem; color:var(--text-soft);}
-  .key-pill{
-    display:inline-block;
-    font-family:var(--mono);
-    font-size:0.76rem;
-    color:var(--priv);
-    margin-top:0.5rem;
-  }
-  .key-pill.pub{color:var(--text-soft);}
-  .key-pill::before{content:"· ";}
-
-  /* ---------- step markers ---------- */
-  .step{
-    margin-bottom:2.2rem;
-  }
-  .step .body{min-width:0;}
-  .step h3{
-    font-family:var(--sans);
-    font-weight:600;
-    font-size:1rem;
-    margin:0.15rem 0 0.5rem;
     color:var(--text);
   }
-  .step p.note{color:var(--text-soft); margin:0 0 0.8rem; font-size:0.95rem;}
+  .machine-head svg{color:var(--muted); flex:none;}
+  .machine-head .host{margin-left:auto; font-family:var(--mono); font-size:12px; font-weight:400; color:var(--muted);}
+  .file{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:12px;
+  }
+  .file + .file{margin-top:4px;}
+  .file-name{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text);
+  }
+  .file-name svg{flex:none; color:var(--muted);}
+  .file.priv .file-name, .file.priv .file-name svg{color:var(--priv);}
+  .file-note{
+    font-size:13px;
+    line-height:20px;
+    color:var(--muted);
+    margin:4px 0 0 24px;
+  }
+  .file-blob{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    margin:4px 0 0 24px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .transfer{
+    align-self:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    color:var(--muted);
+    font-family:var(--mono);
+    font-size:12px;
+    text-align:center;
+  }
+  .transfer .line{
+    width:100%;
+    display:flex;
+    align-items:center;
+  }
+  .transfer .line::before{
+    content:"";
+    flex:1;
+    border-top:1px dashed var(--line-strong);
+  }
+  .transfer .line svg{flex:none; margin-left:-4px;}
+  @media (max-width: 640px){
+    .diagram{grid-template-columns:minmax(0,1fr); gap:8px;}
+    .transfer{flex-direction:row; justify-content:center; padding:4px 0;}
+    .transfer .line{width:auto; transform:rotate(90deg);}
+    .transfer .line::before{width:24px; flex:none;}
+  }
+
+  /* ---------- steps ---------- */
+  .step{margin-bottom:32px;}
+  .step:last-child{margin-bottom:0;}
+  .step h3{
+    font-family:var(--sans);
+    font-weight:500;
+    font-size:16px;
+    margin:0 0 8px;
+  }
+  p.note{color:var(--text-soft); margin:0 0 12px; font-size:15px;}
 
   /* ---------- callouts ---------- */
   .callout{
-    border-left:3px solid var(--priv);
-    background:var(--priv-soft);
-    padding:0.85rem 1rem;
-    border-radius:0 8px 8px 0;
-    font-size:0.93rem;
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:12px 16px;
+    border-radius:8px;
+    font-size:15px;
     color:var(--text-soft);
-    margin:0.9rem 0 1.1rem;
+    margin:12px 0 16px;
   }
-  .callout strong{color:var(--priv);}
 
-  /* ---------- "ChatGPT style" code block ---------- */
+  /* ---------- code block ---------- */
   .codeblock{
     background:var(--code-bg);
+    border:1px solid var(--line);
     border-radius:12px;
     overflow:hidden;
-    margin:0.9rem 0 1rem;
+    margin:12px 0 16px;
   }
   .codeblock .bar{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0.6rem 0.9rem 0.6rem 1rem;
-    font-family:var(--sans);
-    font-size:0.82rem;
-    font-weight:600;
+    padding:4px 4px 0 16px;
+    height:40px;
+    font-size:12px;
     color:var(--code-muted);
   }
   .codeblock .bar .tag{
     display:flex;
     align-items:center;
-    gap:0.45rem;
+    gap:8px;
+    font-family:var(--mono);
   }
-  .codeblock .bar .tag svg{opacity:0.9;}
-  .codeblock .bar .icons{
-    display:flex;
-    gap:0.3rem;
-  }
+  .codeblock .bar .icons{display:flex; gap:4px;}
   .icon-btn{
     background:none;
     border:none;
     color:var(--code-muted);
     cursor:pointer;
-    padding:0.3rem;
-    border-radius:6px;
+    width:32px;
+    height:32px;
+    border-radius:8px;
     display:flex;
     align-items:center;
     justify-content:center;
+    transition:color .15s var(--ease), background-color .15s var(--ease), transform .15s var(--ease);
   }
   .icon-btn:hover{color:var(--code-text); background:rgba(255,255,255,0.06);}
-  .icon-btn.copied{color:var(--code-str);}
+  .icon-btn:active{transform:scale(0.97);}
+  .icon-btn.copied{color:var(--text);}
   .codeblock pre{
     margin:0;
-    padding:0.2rem 1.1rem 1.1rem;
+    padding:4px 16px 16px;
     white-space:pre-wrap;
     word-break:break-word;
     font-family:var(--mono);
-    font-size:0.88rem;
-    line-height:1.7;
+    font-size:14px;
+    line-height:24px;
     color:var(--code-text);
   }
   .codeblock .k{color:var(--code-kw);}
@@ -290,51 +370,55 @@
 
   /* ---------- errors ---------- */
   .error-item{
-    padding:1rem 0;
+    padding:16px 0;
     border-bottom:1px solid var(--line);
   }
+  .error-item:first-of-type{padding-top:0;}
   .error-item:last-child{border-bottom:none;}
   .error-item .msg{
     font-family:var(--mono);
-    font-size:0.82rem;
-    color:var(--priv);
-    margin-bottom:0.5rem;
+    font-size:13px;
+    color:var(--text);
+    margin:0 0 4px;
   }
-  .error-item p{margin:0; font-size:0.92rem; color:var(--text-soft);}
+  .error-item p{margin:0; font-size:15px; color:var(--text-soft);}
+  .error-item .codeblock{margin-top:12px; margin-bottom:0;}
 
   /* ---------- bonus list ---------- */
-  .bonus-grid{
-    display:flex;
-    flex-direction:column;
-  }
   .bonus-card{
-    padding:1.3rem 0;
+    padding:20px 0;
     border-bottom:1px solid var(--line);
   }
+  .bonus-card:first-child{padding-top:0;}
   .bonus-card:last-child{border-bottom:none;}
-  .bonus-card h3{font-family:var(--sans); font-weight:600; font-size:0.95rem; margin:0 0 0.7rem;}
+  .bonus-card h3{font-family:var(--sans); font-weight:500; font-size:16px; margin:0 0 8px;}
+  .bonus-card p{font-size:15px; color:var(--text-soft); margin:0;}
+  .bonus-card .codeblock + p{margin-top:12px;}
+  .bonus-card h3 + p{margin-bottom:12px;}
+  .bonus-card h3 + p:last-child{margin-bottom:0;}
 
-  /* ---------- final security banner ---------- */
+  /* ---------- final security note ---------- */
   .security{
-    margin-top:3.6rem;
-    border:1px solid var(--priv);
-    background:var(--priv-soft);
-    border-radius:var(--radius);
-    padding:1.5rem 1.6rem;
+    margin-top:56px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px;
   }
-  .security h2{border:none; padding:0; margin-bottom:0.8rem; color:var(--priv); font-size:1.3rem;}
-  .security p{color:var(--text-soft); margin:0 0 0.5rem; max-width:none;}
+  .security h2{border:none; padding:0; margin-bottom:12px; font-size:20px;}
+  .security p{color:var(--text-soft); margin:0 0 8px; max-width:none;}
   .security p:last-child{margin-bottom:0;}
 
   footer{
     max-width:var(--max);
     margin:0 auto;
-    padding:1.5rem;
+    padding:24px;
     color:var(--muted);
     font-family:var(--mono);
-    font-size:0.78rem;
+    font-size:12px;
     border-top:1px solid var(--line);
   }
+  footer a{color:var(--text-soft);}
 
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important; animation:none !important;}
@@ -346,10 +430,10 @@
 
 <div class="band">
   <div class="band-inner">
-    <p class="eyebrow"> <a href="index.html">&larr; Zpět na README</a> · VPSLab tutorial</p>
+    <p class="eyebrow"><a href="index.html">&larr; Zpět na README</a> · návod pro VPSLab</p>
     <h1 class="title">SSH klíč místo hesla</h1>
-    <p class="lede">Krok za krokem návod pro Windows a PowerShell - jak vygenerovat SSH klíč a přihlašovat se na školní server bez zadávání hesla.</p>
-    <p style="font-size:0.78rem; color:var(--muted); margin:0.8rem 0 0;">Zpracoval Tomáš Vaněk.</p>
+    <p class="lede">Krok za krokem pro Windows a PowerShell: jak vygenerovat SSH klíč a přihlašovat se na školní server bez zadávání hesla.</p>
+    <p class="byline">Zpracoval Tomáš Vaněk</p>
   </div>
 </div>
 
@@ -376,148 +460,163 @@
       <h2>Princip</h2>
       <p>Na tvém počítači vznikne dvojice klíčů, které spolu matematicky souvisí:</p>
 
-      <div class="principle">
-        <div class="box">
-          <h3>Tvůj počítač</h3>
-          <p>Vygeneruje se pár klíčů. Privátní zůstává doma, veřejný putuje na server.</p>
-          <span class="key-pill">privátní klíč</span><br>
-          <span class="key-pill pub">veřejný klíč</span>
+      <figure class="diagram" aria-label="Privátní klíč zůstává na počítači, veřejný klíč se nahraje na server">
+        <div class="machine">
+          <div class="machine-head">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>
+            Tvůj počítač
+            <span class="host">~\.ssh</span>
+          </div>
+          <div class="file priv">
+            <div class="file-name">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+              id_ed25519
+            </div>
+            <p class="file-note">Privátní klíč, zůstává doma</p>
+          </div>
+          <div class="file">
+            <div class="file-name">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+              id_ed25519.pub
+            </div>
+            <p class="file-note">Veřejný klíč, putuje na server</p>
+          </div>
         </div>
-        <div class="box">
-          <h3>Server (vpslab.cz)</h3>
-          <p>Veřejný klíč se uloží do <code class="path">~/.ssh/authorized_keys</code>. Při přihlášení ověří, že máš odpovídající privátní klíč.</p>
-        </div>
-      </div>
 
-      <p><strong class="priv">Privátní klíč</strong> nikdy neopouští tvůj počítač a nikomu ho neposíláš - volitelně ho chráníš heslem (passphrase). Veřejný klíč naopak nahraješ na server a sám o sobě k ničemu nevede.</p>
-      <p style="color:var(--muted); font-size:0.92rem;">Mimochodem: místo příkazu <code class="path">ssh</code> lze použít i program PuTTY a soubory se kopírují příkazem <code class="path">scp</code>, taky z PowerShellu.</p>
+        <div class="transfer" aria-hidden="true">
+          <span class="line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
+          <span>.pub</span>
+        </div>
+
+        <div class="machine">
+          <div class="machine-head">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>
+            Server
+            <span class="host">vpslab.cz</span>
+          </div>
+          <div class="file">
+            <div class="file-name">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+              ~/.ssh/authorized_keys
+            </div>
+            <p class="file-blob">ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG8x…</p>
+            <p class="file-note">Při přihlášení ověří, že máš odpovídající privátní klíč</p>
+          </div>
+        </div>
+      </figure>
+
+      <p><strong class="priv">Privátní klíč</strong> nikdy neopouští tvůj počítač a nikomu ho neposíláš – volitelně ho chráníš heslem (passphrase). Veřejný klíč naopak nahraješ na server a sám o sobě k ničemu nevede.</p>
+      <p class="aside">Mimochodem: místo příkazu <code class="path">ssh</code> lze použít i program PuTTY a soubory se kopírují příkazem <code class="path">scp</code>, taky z PowerShellu.</p>
     </section>
 
     <section id="krok1">
-      <h2>1 · První přihlášení heslem</h2>
+      <h2><span class="num">1</span>První přihlášení heslem</h2>
       <div class="step">
-        <div class="body">
-          <p class="note">Ověříme, že účet funguje - přihlásíš se klasicky heslem a uvidíš uvítací banner VPSLabu.</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar">
-              <span class="tag"></span>
-              <span class="icons"></span>
-            </div>
-            <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
-          </div>
-          <p class="note">Zadej heslo → objeví se uvítací banner. Pak se odhlas:</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">exit</span></pre>
-          </div>
+        <p class="note">Ověříme, že účet funguje – přihlásíš se klasicky heslem a uvidíš uvítací banner VPSLabu.</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
+        </div>
+        <p class="note">Zadej heslo → objeví se uvítací banner. Pak se odhlas:</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">exit</span></pre>
         </div>
       </div>
     </section>
 
     <section id="krok2">
-      <h2>2 · Vygenerování klíče</h2>
+      <h2><span class="num">2</span>Vygenerování klíče</h2>
       <div class="step">
-        <div class="body">
-          <p class="note">Tenhle krok děláš na svém počítači, ne na serveru - vytvoří se dvojice klíčů typu ed25519.</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">ssh-keygen</span> <span class="f">-t</span> ed25519 <span class="f">-C</span> <span class="s">"jmeno.prijmeni@vpslab.cz"</span></pre>
-          </div>
-          <div class="callout"><strong>Pozor:</strong> <code class="path">-C</code> musí být velké C - je to jen popisek klíče. Malé <code class="path">-c</code> znamená něco jiného a skončí to chybou <code class="path">Too many arguments</code>.</div>
-          <p class="note">Cestu k souboru potvrď Enterem (výchozí <code class="path">C:\Users\&lt;uživatel&gt;\.ssh\id_ed25519</code>).</p>
-          <p class="note"><strong>Passphrase</strong> je volitelná: chrání klíč, i kdyby ti ho někdo ukradl, ale budeš ji pak zadávat při každém připojení.</p>
+        <p class="note">Tenhle krok děláš na svém počítači, ne na serveru – vytvoří se dvojice klíčů typu ed25519.</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">ssh-keygen</span> <span class="f">-t</span> ed25519 <span class="f">-C</span> <span class="s">"jmeno.prijmeni@vpslab.cz"</span></pre>
         </div>
+        <div class="callout"><strong>Pozor:</strong> <code class="path">-C</code> musí být velké C – je to jen popisek klíče. Malé <code class="path">-c</code> znamená něco jiného a skončí to chybou <code class="path">Too many arguments</code>.</div>
+        <p class="note">Cestu k souboru potvrď <kbd>Enter</kbd> (výchozí <code class="path">C:\Users\&lt;uživatel&gt;\.ssh\id_ed25519</code>).</p>
+        <p class="note"><strong>Passphrase</strong> je volitelná: chrání <strong class="priv">privátní klíč</strong>, i kdyby ti ho někdo ukradl, ale budeš ji pak zadávat při každém připojení.</p>
       </div>
     </section>
 
     <section id="krok3">
-      <h2>3 · Kontrola, že klíče vznikly</h2>
+      <h2><span class="num">3</span>Kontrola, že klíče vznikly</h2>
       <div class="step">
-        <div class="body">
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">ls</span> $env:USERPROFILE\.ssh</pre>
-          </div>
-          <p class="note">Měly by se objevit <code class="path">id_ed25519</code> (privátní) a <code class="path">id_ed25519.pub</code> (veřejný). Obsah veřejného klíče zobrazíš takto:</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">Get-Content</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519.pub"</span></pre>
-          </div>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">ls</span> $env:USERPROFILE\.ssh</pre>
+        </div>
+        <p class="note">Měly by se objevit <code class="path">id_ed25519</code> (privátní) a <code class="path">id_ed25519.pub</code> (veřejný). Obsah veřejného klíče zobrazíš takto:</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">Get-Content</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519.pub"</span></pre>
         </div>
       </div>
     </section>
 
     <section id="krok4">
-      <h2>4 · Nahrání veřejného klíče na server</h2>
+      <h2><span class="num">4</span>Nahrání veřejného klíče na server</h2>
 
       <div class="step">
-        <div class="body">
-          <h3>Varianta A - jedním příkazem</h3>
-          <p class="note">Pošle veřejný klíč rovnou na server a připíše ho do <code class="path">authorized_keys</code>. Naposledy se ještě zeptá na heslo.</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">Get-Content</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519.pub"</span> | <span class="k">ssh</span> jmeno.prijmeni@vpslab.cz <span class="s">"mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"</span></pre>
-          </div>
+        <h3>Varianta A – jedním příkazem</h3>
+        <p class="note">Pošle veřejný klíč rovnou na server a připíše ho do <code class="path">authorized_keys</code>. Naposledy se ještě zeptá na heslo.</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">Get-Content</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519.pub"</span> | <span class="k">ssh</span> jmeno.prijmeni@vpslab.cz <span class="s">"mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"</span></pre>
         </div>
       </div>
 
       <div class="step">
-        <div class="body">
-          <h3>Varianta B - ručně přes schránku</h3>
-          <p class="note">Zkopíruj veřejný klíč do schránky:</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">Get-Content</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519.pub"</span> | <span class="k">Set-Clipboard</span></pre>
-          </div>
-          <p class="note">Přihlas se heslem a na serveru vytvoř složku <code class="path">.ssh</code>:</p>
-          <div class="codeblock" data-lang="bash">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">mkdir</span> <span class="f">-p</span> ~/.ssh
+        <h3>Varianta B – ručně přes schránku</h3>
+        <p class="note">Zkopíruj veřejný klíč do schránky:</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">Get-Content</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519.pub"</span> | <span class="k">Set-Clipboard</span></pre>
+        </div>
+        <p class="note">Přihlas se heslem a na serveru vytvoř složku <code class="path">.ssh</code>:</p>
+        <div class="codeblock" data-lang="bash">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">mkdir</span> <span class="f">-p</span> ~/.ssh
 <span class="k">chmod</span> 700 ~/.ssh
 <span class="k">nano</span> ~/.ssh/authorized_keys</pre>
-          </div>
-          <p class="note">V nano vlož klíč pravým tlačítkem myši, ulož <strong>Ctrl+O</strong> → Enter, zavři <strong>Ctrl+X</strong>. Pak:</p>
-          <div class="codeblock" data-lang="bash">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">chmod</span> 600 ~/.ssh/authorized_keys</pre>
-          </div>
+        </div>
+        <p class="note">V nano vlož klíč pravým tlačítkem myši, ulož <kbd>Ctrl+O</kbd> → <kbd>Enter</kbd>, zavři <kbd>Ctrl+X</kbd>. Pak:</p>
+        <div class="codeblock" data-lang="bash">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">chmod</span> 600 ~/.ssh/authorized_keys</pre>
         </div>
       </div>
     </section>
 
     <section id="krok5">
-      <h2>5 · Kontrola na serveru</h2>
+      <h2><span class="num">5</span>Kontrola na serveru</h2>
       <div class="step">
-        <div class="body">
-          <div class="codeblock" data-lang="bash">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">cat</span> ~/.ssh/authorized_keys</pre>
-          </div>
-          <p class="note">Musí tam být řádek začínající <code class="path">ssh-ed25519 AAAA...</code>. Volitelně ověř, že SSH server běží:</p>
-          <div class="codeblock" data-lang="bash">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">sudo</span> systemctl status ssh</pre>
-          </div>
-          <p class="note">Stav musí být <code class="path">active (running)</code>.</p>
+        <div class="codeblock" data-lang="bash">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">cat</span> ~/.ssh/authorized_keys</pre>
         </div>
+        <p class="note">Musí tam být řádek začínající <code class="path">ssh-ed25519 AAAA...</code>. Volitelně ověř, že SSH server běží:</p>
+        <div class="codeblock" data-lang="bash">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">sudo</span> systemctl status ssh</pre>
+        </div>
+        <p class="note">Stav musí být <code class="path">active (running)</code>.</p>
       </div>
     </section>
 
     <section id="krok6">
-      <h2>6 · Přihlášení klíčem - bez hesla</h2>
+      <h2><span class="num">6</span>Přihlášení klíčem bez hesla</h2>
       <div class="step">
-        <div class="body">
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
-          </div>
-          <p class="note">Nebo s výslovným určením klíče:</p>
-          <div class="codeblock" data-lang="powershell">
-            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
-            <pre><span class="k">ssh</span> <span class="f">-i</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519"</span> jmeno.prijmeni@vpslab.cz</pre>
-          </div>
-          <p class="note">Pokud se server nezeptá na heslo (max. na passphrase), máš hotovo.</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
         </div>
+        <p class="note">Nebo s výslovným určením klíče:</p>
+        <div class="codeblock" data-lang="powershell">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre><span class="k">ssh</span> <span class="f">-i</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519"</span> jmeno.prijmeni@vpslab.cz</pre>
+        </div>
+        <p class="note">Pokud se server nezeptá na heslo (nanejvýš na passphrase), máš hotovo.</p>
       </div>
     </section>
 
@@ -526,7 +625,7 @@
 
       <div class="error-item">
         <p class="msg">ssh-copy-id: příkaz neexistuje</p>
-        <p>Na Windows tento pomocný nástroj není - je jen pro Linux/macOS. Použij variantu A nebo B z kroku 4. Spouštět ho na serveru nedává smysl, klíč je na tvém PC.</p>
+        <p>Na Windows tento pomocný nástroj není – je jen pro Linux/macOS. Použij variantu A nebo B z kroku 4. Spouštět ho na serveru nedává smysl, klíč je na tvém PC.</p>
       </div>
 
       <div class="error-item">
@@ -541,18 +640,18 @@
 
       <div class="error-item">
         <p class="msg">Could not resolve hostname / Permission denied</p>
-        <p>Většinou překlep v uživatelském jméně nebo adrese - zkontroluj <code class="path">jmeno.prijmeni@vpslab.cz</code>. Pozor: při špatném jméně server klíč „přijme" a stejně nakonec chce heslo - vypadá to, že klíč nefunguje, ale problém je jinde.</p>
+        <p>Většinou překlep v uživatelském jméně nebo adrese – zkontroluj <code class="path">jmeno.prijmeni@vpslab.cz</code>. Pozor: při špatném jméně server klíč „přijme“ a stejně nakonec chce heslo. Vypadá to, že klíč nefunguje, ale problém je jinde.</p>
       </div>
 
       <div class="error-item">
         <p class="msg">authorized_keys je soubor, ne příkaz</p>
-        <p>Nikdy ho nespouštěj jako program - otevírej ho přes <code class="path">nano</code> nebo prohlížej přes <code class="path">cat</code>.</p>
+        <p>Nikdy ho nespouštěj jako program – otevírej ho přes <code class="path">nano</code> nebo prohlížej přes <code class="path">cat</code>.</p>
       </div>
 
       <div class="error-item">
         <p class="msg">Ladění: ssh -v</p>
-        <p>Ukáže podrobný průběh připojování - který klíč se nabízí a jak server odpovídá:</p>
-        <div class="codeblock" data-lang="powershell" style="margin-top:0.8rem;">
+        <p>Ukáže podrobný průběh připojování – který klíč se nabízí a jak server odpovídá:</p>
+        <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh</span> <span class="f">-v</span> jmeno.prijmeni@vpslab.cz</pre>
         </div>
@@ -576,7 +675,7 @@
 
         <div class="bonus-card">
           <h3>Rychlé připojení skriptem</h3>
-          <p style="font-size:0.9rem; color:var(--text-soft); margin:0 0 0.6rem;">Soubor <code class="path">edulab.bat</code> (Windows) / <code class="path">edulab.sh</code> (Linux):</p>
+          <p>Soubor <code class="path">edulab.bat</code> (Windows) / <code class="path">edulab.sh</code> (Linux):</p>
           <div class="codeblock" data-lang="powershell">
             <div class="bar"><span class="tag"></span><span class="icons"></span></div>
             <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
@@ -591,26 +690,26 @@
     <span class="f">HostName</span> vpslab.cz
     <span class="f">User</span> jmeno.prijmeni</pre>
           </div>
-          <p style="font-size:0.9rem; color:var(--text-soft); margin:0.6rem 0 0;">Pak stačí: <code class="path">ssh edulab</code></p>
+          <p>Pak stačí: <code class="path">ssh edulab</code></p>
         </div>
 
         <div class="bonus-card">
-          <h3>VS Code - Remote-SSH</h3>
-          <p style="font-size:0.9rem; color:var(--text-soft); margin:0;">Nainstaluj rozšíření <strong>Remote-SSH</strong> a připoj se na <code class="path">jmeno.prijmeni@vpslab.cz</code> - VS Code použije stejný klíč a otevře vzdálenou složku jako lokální projekt.</p>
+          <h3>VS Code a Remote-SSH</h3>
+          <p>Nainstaluj rozšíření <strong>Remote-SSH</strong> a připoj se na <code class="path">jmeno.prijmeni@vpslab.cz</code> – VS Code použije stejný klíč a otevře vzdálenou složku jako lokální projekt.</p>
         </div>
       </div>
     </section>
 
     <section id="bezpecnost" class="security">
       <h2>Bezpečnostní upozornění</h2>
-      <p><strong class="priv">Privátní klíč nikdy nikam nekopíruj ani neposílej</strong> - ani kamarádovi, ani do e-mailu, ani na GitHub. Je to jediná věc, která chrání tvůj účet.</p>
-      <p>Na VPSLabu běží účty všech spolužáků na jednom stroji - vše je logované. Útok na server nebo na účty spolužáků znamená okamžitý konec přístupu k účtu.</p>
+      <p><strong class="priv">Privátní klíč nikdy nikam nekopíruj ani neposílej</strong> – ani kamarádovi, ani do e-mailu, ani na GitHub. Je to jediná věc, která chrání tvůj účet.</p>
+      <p>Na VPSLabu běží účty všech spolužáků na jednom stroji a vše je logované. Útok na server nebo na účty spolužáků znamená okamžitý konec přístupu k účtu.</p>
     </section>
 
   </main>
 </div>
 
-<footer>made with ❤️ by <a href="https://tomandes.eu/">tomandesmsh</a> · thx to <a href="https://github.com/Lukas-Grenar">Lukas-Grenar</a> · for VPSLab</footer>
+<footer>made with ❤️ by <a href="https://tomandes.eu/">tomandesmsh</a> · díky <a href="https://github.com/Lukas-Grenar">Lukas-Grenar</a> · pro VPSLab</footer>
 
 <script>
 (function(){
@@ -644,9 +743,10 @@
 })();
 
 (function(){
-  var CODE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>';
-  var COPY_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-  var CHECK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  var svg = function(inner){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>'; };
+  var CODE_ICON = svg('<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>');
+  var COPY_ICON = svg('<rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>');
+  var CHECK_ICON = svg('<polyline points="20 6 9 17 4 12"></polyline>');
 
   document.querySelectorAll('.codeblock').forEach(function(block){
     var bar = block.querySelector('.bar');
