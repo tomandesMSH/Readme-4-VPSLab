@@ -149,6 +149,15 @@
     color:var(--muted);
     margin:0 0 8px;
   }
+  nav.toc .toc-group{
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-soft);
+    margin:20px 0 8px;
+  }
+  nav.toc .toc-group:first-of-type{margin-top:0;}
   nav.toc ol{
     list-style:none;
     margin:0;
@@ -184,6 +193,30 @@
 
   section{margin-top:56px; scroll-margin-top:24px;}
   section:first-child{margin-top:0;}
+
+  /* ---------- part dividers (Linux / SSH klíče) ---------- */
+  .part-divider{
+    margin-top:64px;
+    padding-top:40px;
+    border-top:2px solid var(--line-strong);
+    scroll-margin-top:24px;
+  }
+  .part-divider:first-child{margin-top:0; padding-top:0; border-top:none;}
+  .part-divider .part-label{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 8px;
+  }
+  .part-divider h2{
+    font-size:32px;
+    line-height:1.2;
+    margin:0 0 8px;
+  }
+  .part-divider p{color:var(--text-soft); margin:0; max-width:60ch;}
+
   section h2{
     font-size:24px;
     line-height:1.25;

@@ -43,11 +43,17 @@
 <div class="shell">
   <nav class="toc" aria-label="Obsah">
     <p class="toc-label">Obsah</p>
+    <p class="toc-group">Část 1 - Linux</p>
     <ol>
       <li><a href="#linux-zaklady">Linux základy</a></li>
       <li><a href="#slovnicek">Slovníček pojmů</a></li>
       <li><a href="#opravneni">Oprávnění souborů</a></li>
       <li><a href="#bash-triky">Roury, přesměrování a hledání</a></li>
+      <li><a href="#sprava-serveru">Práce na serveru</a></li>
+      <li><a href="#tmux">Neztrať rozdělanou práci</a></li>
+    </ol>
+    <p class="toc-group">Část 2 - SSH klíče</p>
+    <ol>
       <li><a href="#princip">Princip</a></li>
       <li><a href="#krok1">1. Heslo</a></li>
       <li><a href="#krok2">2. Vygenerování</a></li>
@@ -55,8 +61,6 @@
       <li><a href="#krok4">4. Nahrání</a></li>
       <li><a href="#krok5">5. Kontrola na serveru</a></li>
       <li><a href="#krok6">6. Přihlášení</a></li>
-      <li><a href="#sprava-serveru">Práce na serveru</a></li>
-      <li><a href="#tmux">Neztrať rozdělanou práci</a></li>
       <li><a href="#chyby">Časté chyby</a></li>
       <li><a href="#bonus">Bonus</a></li>
       <li><a href="#cviceni">Vyzkoušej si sám</a></li>
@@ -65,6 +69,12 @@
   </nav>
 
   <main>
+
+    <div class="part-divider">
+      <p class="part-label">Část 1</p>
+      <h2>Linux základy</h2>
+      <p>Obecné dovednosti, co se budou hodit pokaždé, když se přihlásíš na server - bez ohledu na to, jestli zrovna používáš heslo, nebo SSH klíč.</p>
+    </div>
 
     <section id="linux-zaklady">
       <h2>Linux základy</h2>
@@ -159,6 +169,43 @@
 
       <div class="callout"><strong>Příklad:</strong> chceš zkontrolovat, jestli je tvůj klíč v <code class="path">authorized_keys</code>, ale soubor je dlouhý? Spoj <code class="path">cat</code> s <code class="path">grep</code> přes rouru: <code class="path">cat ~/.ssh/authorized_keys | grep jmeno.prijmeni</code> vypíše jen řádek, co obsahuje tvoje jméno.</div>
     </section>
+
+    <section id="sprava-serveru">
+      <h2>Práce na serveru</h2>
+      <p>Jsi přihlášený a vše funguje - co dál? Pár příkazů, co se hodí, až budeš na serveru něco spravovat nebo instalovat.</p>
+      <div class="cmd-table">
+        <code class="path">df -h</code><span>Kolik místa zbývá na disku (<code class="path">-h</code> = čitelně, v GB místo bajtů).</span>
+        <code class="path">du -sh *</code><span>Kolik místa zabírá každá položka v aktuální složce.</span>
+        <code class="path">ps aux</code><span>Vypíše všechny spuštěné procesy (programy) na serveru.</span>
+        <code class="path">top</code><span>Živý přehled toho, co běží a kolik to zabírá výkonu. Zavřeš klávesou <kbd>Q</kbd>.</span>
+        <code class="path">sudo apt update</code><span>Stáhne seznam dostupných balíčků. Spouštěj vždy před instalací.</span>
+        <code class="path">sudo apt install balicek</code><span>Nainstaluje balíček (program) pod daným jménem.</span>
+        <code class="path">systemctl status sluzba</code><span>Zobrazí, jestli nějaká služba běží - stejný trik pak použiješ u <code class="path">ssh</code> v kroku 5.</span>
+        <code class="path">sudo systemctl restart sluzba</code><span>Restartuje službu, třeba po změně nastavení.</span>
+      </div>
+      <p class="aside">Příkaz <code class="path">apt</code> funguje na distribucích jako Ubuntu/Debian (tedy i na VPSLabu) - na jiném Linuxu by se jmenoval jinak.</p>
+    </section>
+
+    <section id="tmux">
+      <h2>Neztrať rozdělanou práci</h2>
+      <p>SSH spojení se může kdykoliv přerušit - zavřeš notebook, vypadne wifi, usneš. A s ním umře i cokoliv, co jsi na serveru zrovna spustil. Třeba si zkusíš pustit vlastní webový server ve složce <code class="path">~/web</code> (viz Bonus v další části) a chceš, aby běžel dál, i když se odpojíš. Přesně na to je <code class="path">tmux</code>.</p>
+
+      <div class="cmd-table">
+        <code class="path">tmux</code><span>Spustí novou „virtuální obrazovku", která přežije i odpojení.</span>
+        <span><kbd>Ctrl+B</kbd> <kbd>D</kbd></span><span>Odpojí se od session (detach) - ta běží dál na pozadí.</span>
+        <code class="path">tmux attach</code><span>Znovu se připojí k poslední rozdělané session.</span>
+        <code class="path">tmux ls</code><span>Vypíše, jaké session zrovna běží.</span>
+        <code class="path">exit</code><span>Spuštěné uvnitř tmuxu session úplně ukončí.</span>
+      </div>
+
+      <div class="callout"><strong>Příklad:</strong> na serveru spustíš přes <code class="path">tmux</code> příkaz, co má běžet dlouho (třeba webový server). Odpojíš se klávesami <kbd>Ctrl+B</kbd> <kbd>D</kbd>, zavřeš notebook - a příkaz běží dál. Až se zas přihlásíš, napíšeš <code class="path">tmux attach</code> a uvidíš ho přesně tam, kde jsi skončil.</div>
+    </section>
+
+    <div class="part-divider">
+      <p class="part-label">Část 2</p>
+      <h2>SSH klíče</h2>
+      <p>Teď, když umíš základy Linuxu, se pustíme do hlavního tématu návodu - jak se na server přihlásit bez hesla.</p>
+    </div>
 
     <section id="princip">
       <h2>Princip</h2>
@@ -368,37 +415,6 @@ The key's randomart image is:
         </div>
         <p class="note">Pokud se server nezeptá na heslo (nanejvýš na passphrase), máš hotovo.</p>
       </div>
-    </section>
-
-    <section id="sprava-serveru">
-      <h2>Práce na serveru</h2>
-      <p>Jsi přihlášený a vše funguje - co dál? Pár příkazů, co se hodí, až budeš na serveru něco spravovat nebo instalovat.</p>
-      <div class="cmd-table">
-        <code class="path">df -h</code><span>Kolik místa zbývá na disku (<code class="path">-h</code> = čitelně, v GB místo bajtů).</span>
-        <code class="path">du -sh *</code><span>Kolik místa zabírá každá položka v aktuální složce.</span>
-        <code class="path">ps aux</code><span>Vypíše všechny spuštěné procesy (programy) na serveru.</span>
-        <code class="path">top</code><span>Živý přehled toho, co běží a kolik to zabírá výkonu. Zavřeš klávesou <kbd>Q</kbd>.</span>
-        <code class="path">sudo apt update</code><span>Stáhne seznam dostupných balíčků. Spouštěj vždy před instalací.</span>
-        <code class="path">sudo apt install balicek</code><span>Nainstaluje balíček (program) pod daným jménem.</span>
-        <code class="path">systemctl status sluzba</code><span>Zobrazí, jestli nějaká služba běží - stejně jako u <code class="path">ssh</code> v kroku 5.</span>
-        <code class="path">sudo systemctl restart sluzba</code><span>Restartuje službu, třeba po změně nastavení.</span>
-      </div>
-      <p class="aside">Příkaz <code class="path">apt</code> funguje na distribucích jako Ubuntu/Debian (tedy i na VPSLabu) - na jiném Linuxu by se jmenoval jinak.</p>
-    </section>
-
-    <section id="tmux">
-      <h2>Neztrať rozdělanou práci</h2>
-      <p>SSH spojení se může kdykoliv přerušit - zavřeš notebook, vypadne wifi, usneš. A s ním umře i cokoliv, co jsi na serveru zrovna spustil. Třeba si zkusíš pustit vlastní webový server ve složce <code class="path">~/web</code> (viz Bonus níže) a chceš, aby běžel dál, i když se odpojíš. Přesně na to je <code class="path">tmux</code>.</p>
-
-      <div class="cmd-table">
-        <code class="path">tmux</code><span>Spustí novou „virtuální obrazovku", která přežije i odpojení.</span>
-        <span><kbd>Ctrl+B</kbd> <kbd>D</kbd></span><span>Odpojí se od session (detach) - ta běží dál na pozadí.</span>
-        <code class="path">tmux attach</code><span>Znovu se připojí k poslední rozdělané session.</span>
-        <code class="path">tmux ls</code><span>Vypíše, jaké session zrovna běží.</span>
-        <code class="path">exit</code><span>Spuštěné uvnitř tmuxu session úplně ukončí.</span>
-      </div>
-
-      <div class="callout"><strong>Příklad:</strong> na serveru spustíš přes <code class="path">tmux</code> příkaz, co má běžet dlouho (třeba webový server). Odpojíš se klávesami <kbd>Ctrl+B</kbd> <kbd>D</kbd>, zavřeš notebook - a příkaz běží dál. Až se zas přihlásíš, napíšeš <code class="path">tmux attach</code> a uvidíš ho přesně tam, kde jsi skončil.</div>
     </section>
 
     <section id="chyby">
