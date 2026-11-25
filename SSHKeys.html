@@ -553,40 +553,40 @@
 
     <section id="linux-zaklady">
       <h2>Linux základy</h2>
-      <p>Server <code class="path">vpslab.cz</code> běží na Linuxu, ne na Windows – po přihlášení přes SSH tě přivítá <strong>shell</strong> (nejčastěji <strong>bash</strong>), kam se příkazy jen píšou, žádná okna ani myš. Než se pustíš do zbytku návodu, tady je rychlý přehled toho nejpotřebnějšího.</p>
+      <p>Server <code class="path">vpslab.cz</code> je úplně jiný počítač než ten tvůj a běží na Linuxu. Žádná myš, žádné ikonky, žádná okýnka – jen černá obrazovka, kam píšeš slovíčka (= příkazy) a mačkáš <kbd>Enter</kbd>. Zní to děsivě, ale vystačíš si s hrstkou základních příkazů. Tady jsou:</p>
 
       <div class="cmd-table">
-        <code class="path">pwd</code><span>Ukáže, ve které složce právě jsi (print working directory).</span>
-        <code class="path">ls</code><span>Vypíše obsah aktuální složky. <code class="path">ls -la</code> ukáže i skryté soubory a oprávnění.</span>
-        <code class="path">cd slozka</code><span>Přejde do složky. <code class="path">cd ..</code> o úroveň výš, samotné <code class="path">cd</code> tě vrátí domů.</span>
-        <code class="path">mkdir slozka</code><span>Vytvoří novou složku.</span>
-        <code class="path">touch soubor</code><span>Vytvoří prázdný soubor (případně mu jen aktualizuje čas úpravy).</span>
-        <code class="path">cp zdroj cil</code><span>Zkopíruje soubor. Pro celou složku přidej <code class="path">-r</code>.</span>
-        <code class="path">mv zdroj cil</code><span>Přesune nebo přejmenuje soubor či složku.</span>
-        <code class="path">rm soubor</code><span>Smaže soubor – nenávratně, žádný koš. Pro složku <code class="path">rm -r slozka</code>.</span>
-        <code class="path">cat soubor</code><span>Vypíše obsah souboru na obrazovku.</span>
-        <code class="path">nano soubor</code><span>Otevře jednoduchý textový editor přímo v terminálu – uložíš <kbd>Ctrl+O</kbd>, zavřeš <kbd>Ctrl+X</kbd>.</span>
-        <code class="path">sudo příkaz</code><span>Spustí příkaz s právy administrátora. Server se zeptá na tvé heslo.</span>
-        <code class="path">man příkaz</code><span>Zobrazí nápovědu k příkazu. Zavřeš klávesou <kbd>Q</kbd>.</span>
-        <code class="path">clear</code><span>Vyčistí obrazovku terminálu.</span>
-        <code class="path">exit</code><span>Odhlásí tě ze SSH session zpátky na tvůj počítač.</span>
+        <code class="path">pwd</code><span>Řekne ti, ve které složce zrovna jsi. Hoď se, když se v tom ztratíš.</span>
+        <code class="path">ls</code><span>Vypíše, co je ve složce, kde zrovna jsi – jako když ji otevřeš a podíváš se dovnitř.</span>
+        <code class="path">cd slozka</code><span>Vejdeš do složky. <code class="path">cd ..</code> tě vrátí o patro výš, samotné <code class="path">cd</code> tě hodí rovnou domů.</span>
+        <code class="path">mkdir slozka</code><span>Vytvoří novou prázdnou složku.</span>
+        <code class="path">touch soubor</code><span>Vytvoří nový prázdný soubor.</span>
+        <code class="path">cp zdroj cil</code><span>Zkopíruje soubor – jako Ctrl+C a Ctrl+V, jen napsané jedním příkazem.</span>
+        <code class="path">mv zdroj cil</code><span>Přesune soubor jinam, nebo ho přejmenuje.</span>
+        <code class="path">rm soubor</code><span>Smaže soubor. Natrvalo – žádný koš, odkud by šel vrátit zpátky.</span>
+        <code class="path">cat soubor</code><span>Vypíše obsah souboru rovnou na obrazovku, ať si ho můžeš přečíst.</span>
+        <code class="path">nano soubor</code><span>Otevře jednoduchý editor, kde soubor můžeš upravit – víc o něm hned pod tabulkou.</span>
+        <code class="path">sudo příkaz</code><span>Spustí příkaz jako „šéf" počítače, s nejvyššími právy. Server se tě zeptá na heslo.</span>
+        <code class="path">man příkaz</code><span>Zobrazí nápovědu, kdyby sis nebyl jistý, co příkaz vlastně dělá. Zavřeš klávesou <kbd>Q</kbd>.</span>
+        <code class="path">clear</code><span>Smaže všechno napsané z obrazovky, ať v tom neplaveš.</span>
+        <code class="path">exit</code><span>Odhlásí tě ze serveru zpátky na tvůj počítač.</span>
       </div>
 
-      <h3 style="font-family:var(--sans); font-weight:500; font-size:16px; margin:28px 0 12px;">Ovládání nano</h3>
-      <p>V nano nic neklikáš myší ani v menu – všechno jde přes klávesové zkratky, které jsou pro přehled vypsané dole na obrazovce (znak <kbd>^</kbd> tam znamená <kbd>Ctrl</kbd>):</p>
+      <h3 style="font-family:var(--sans); font-weight:500; font-size:16px; margin:28px 0 12px;">Jak funguje nano</h3>
+      <p>Nano je editor textu, co se ti otevře přímo v terminálu – třeba v kroku 4. Žádná myš, žádné tlačítko „Uložit", všechno jde přes klávesnici. Dole na obrazovce ti nano pořád ukazuje, co umí – znak <kbd>^</kbd> tam znamená klávesu <kbd>Ctrl</kbd>.</p>
       <div class="cmd-table">
-        <kbd>Ctrl+O</kbd><span>Uloží soubor (Write Out) – pak ještě potvrď název klávesou <kbd>Enter</kbd>.</span>
-        <kbd>Ctrl+X</kbd><span>Zavře nano. Pokud jsi neuložil, zeptá se, jestli chceš změny uložit.</span>
-        <kbd>Ctrl+K</kbd><span>Vyjme (smaže) celý řádek, na kterém stojí kurzor.</span>
-        <kbd>Ctrl+U</kbd><span>Vloží naposledy vyjmutý řádek zpátky.</span>
-        <kbd>Ctrl+W</kbd><span>Vyhledá text v souboru.</span>
-        <kbd>šipky</kbd><span>Pohyb kurzoru – nano nereaguje na kliknutí myší.</span>
+        <kbd>Ctrl+O</kbd><span>Uloží to, co jsi napsal. Pak ještě stiskni <kbd>Enter</kbd>, aby to potvrdil.</span>
+        <kbd>Ctrl+X</kbd><span>Zavře nano. Pokud jsi zapomněl uložit, sám se zeptá.</span>
+        <kbd>Ctrl+K</kbd><span>Smaže celý řádek, na kterém stojí kurzor.</span>
+        <kbd>Ctrl+U</kbd><span>Vrátí zpátky řádek, který jsi právě smazal.</span>
+        <kbd>Ctrl+W</kbd><span>Najde slovo nebo text v souboru.</span>
+        <kbd>šipky</kbd><span>Posouvají kurzor po textu. Myš tady bohužel nezabere.</span>
       </div>
-      <div class="callout"><strong>Pozor:</strong> na rozdíl od Windows tu <kbd>Ctrl+X</kbd> neznamená „vyjmout", ale „zavřít editor". Vložit zkopírovaný text (třeba veřejný klíč) jde normálně pravým tlačítkem myši přímo do okna terminálu.</div>
+      <div class="callout"><strong>Pozor:</strong> ve Windows znamená <kbd>Ctrl+X</kbd> „vyjmout". V nano ale „zavřít editor"! Zkopírovaný text (třeba svůj klíč) do nano vložíš obyčejným kliknutím pravým tlačítkem myši přímo do okna terminálu.</div>
 
-      <div class="callout"><strong>Tip:</strong> klávesa <kbd>Tab</kbd> doplní název souboru nebo složky za tebe, šipka <kbd>↑</kbd> vrátí poslední příkaz a <kbd>Ctrl+C</kbd> přeruší běžící příkaz. Ušetří to spoustu psaní i překlepů.</div>
+      <div class="callout"><strong>Tip:</strong> napiš první písmena a stiskni <kbd>Tab</kbd> – zbytek jména souboru nebo složky ti terminál dopíše sám. Šipka <kbd>↑</kbd> ti vrátí příkaz, co jsi napsal naposledy, takže ho nemusíš psát znovu. A když se něco zasekne nebo běží moc dlouho, <kbd>Ctrl+C</kbd> to zastaví.</div>
 
-      <p class="aside">Tyhle příkazy platí až <strong>po přihlášení na server</strong> (viz krok 1 níže) – do té doby pracuješ v PowerShellu na svém počítači.</p>
+      <p class="aside">Tohle všechno platí, až budeš <strong>přihlášený na serveru</strong> (viz krok 1 níže). Do té doby píšeš příkazy ve Windows PowerShellu na svém počítači – a to je úplně jiná sada slovíček.</p>
     </section>
 
     <section id="princip">
