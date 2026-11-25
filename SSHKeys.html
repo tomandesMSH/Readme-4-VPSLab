@@ -525,15 +525,15 @@
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
     <div>
       <h2>Pozor, ať se neplácáš mezi terminály</h2>
-      <p>Některé příkazy spouštíš ve <strong>Windows terminálu / PowerShellu na svém počítači</strong> (jde se připojit na server), jiné až <strong>poté, co jsi přes SSH přihlášený na serveru</strong> – tam server běží na Linuxu a čeká bash příkazy. Spustit linuxový příkaz v PowerShellu (nebo naopak) skončí chybou. Barevný štítek u každého bloku s příkazem ti řekne, kde přesně ho máš zadat.</p>
+      <p>Některé příkazy spouštíš ve <strong>Windows terminálu / PowerShellu na svém počítači</strong> (jde se připojit na server), jiné až <strong>poté, co jsi přes SSH přihlášený na serveru</strong> - tam server běží na Linuxu a čeká bash příkazy. Spustit linuxový příkaz v PowerShellu (nebo naopak) skončí chybou. Barevný štítek u každého bloku s příkazem ti řekne, kde přesně ho máš zadat.</p>
       <div class="legend">
         <span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 3h8.4v8.4H3V3zm9.6 0H21v8.4h-8.4V3zM3 12.6h8.4V21H3v-8.4zm9.6 0H21V21h-8.4v-8.4z"></path></svg>
-          Windows – tvůj počítač
+          Windows - tvůj počítač
         </span>
         <span>
           <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.3 10c-1.3 2-2 4.3-2 6.8 0 3.3 2.4 5.2 5.7 5.2s5.7-1.9 5.7-5.2c0-2.5-.7-4.8-2-6.8-1.1-.7-2.3-1-3.7-1s-2.6.3-3.7 1z" fill="currentColor"></path><circle cx="12" cy="6.8" r="3.6" fill="currentColor"></circle><path d="M9.4 12.8c-.6 1.4-.9 3-.9 4.4 0 2.2 1.4 3.6 3.5 3.6s3.5-1.4 3.5-3.6c0-1.4-.3-3-.9-4.4-.8-.5-1.6-.7-2.6-.7s-1.8.2-2.6.7z" style="fill:var(--bg)"></path><circle cx="10.2" cy="6.3" r="0.75" style="fill:var(--bg)"></circle><circle cx="13.8" cy="6.3" r="0.75" style="fill:var(--bg)"></circle><path d="M11.1 8.5h1.8l-.9 1.1z" fill="#f2a93b"></path><ellipse cx="9" cy="21.6" rx="1.3" ry="0.7" fill="#f2a93b"></ellipse><ellipse cx="15" cy="21.6" rx="1.3" ry="0.7" fill="#f2a93b"></ellipse></svg>
-          Linux – vzdálený server
+          Linux - vzdálený server
         </span>
       </div>
     </div>
@@ -567,19 +567,19 @@
 
     <section id="linux-zaklady">
       <h2>Linux základy</h2>
-      <p>Server <code class="path">vpslab.cz</code> je úplně jiný počítač než ten tvůj a běží na Linuxu. Žádná myš, žádné ikonky, žádná okýnka – jen černá obrazovka, kam píšeš slovíčka (= příkazy) a mačkáš <kbd>Enter</kbd>. Zní to děsivě, ale vystačíš si s hrstkou základních příkazů. Tady jsou:</p>
+      <p>Server <code class="path">vpslab.cz</code> je úplně jiný počítač než ten tvůj a běží na Linuxu. Žádná myš, žádné ikonky, žádná okýnka - jen černá obrazovka, kam píšeš slovíčka (= příkazy) a mačkáš <kbd>Enter</kbd>. Zní to děsivě, ale vystačíš si s hrstkou základních příkazů. Tady jsou:</p>
 
       <div class="cmd-table">
         <code class="path">pwd</code><span>Řekne ti, ve které složce zrovna jsi. Hoď se, když se v tom ztratíš.</span>
-        <code class="path">ls</code><span>Vypíše, co je ve složce, kde zrovna jsi – jako když ji otevřeš a podíváš se dovnitř.</span>
+        <code class="path">ls</code><span>Vypíše, co je ve složce, kde zrovna jsi - jako když ji otevřeš a podíváš se dovnitř.</span>
         <code class="path">cd slozka</code><span>Vejdeš do složky. <code class="path">cd ..</code> tě vrátí o patro výš, samotné <code class="path">cd</code> tě hodí rovnou domů.</span>
         <code class="path">mkdir slozka</code><span>Vytvoří novou prázdnou složku.</span>
         <code class="path">touch soubor</code><span>Vytvoří nový prázdný soubor.</span>
-        <code class="path">cp zdroj cil</code><span>Zkopíruje soubor – jako Ctrl+C a Ctrl+V, jen napsané jedním příkazem.</span>
+        <code class="path">cp zdroj cil</code><span>Zkopíruje soubor - jako Ctrl+C a Ctrl+V, jen napsané jedním příkazem.</span>
         <code class="path">mv zdroj cil</code><span>Přesune soubor jinam, nebo ho přejmenuje.</span>
-        <code class="path">rm soubor</code><span>Smaže soubor. Natrvalo – žádný koš, odkud by šel vrátit zpátky.</span>
+        <code class="path">rm soubor</code><span>Smaže soubor. Natrvalo - žádný koš, odkud by šel vrátit zpátky.</span>
         <code class="path">cat soubor</code><span>Vypíše obsah souboru rovnou na obrazovku, ať si ho můžeš přečíst.</span>
-        <code class="path">nano soubor</code><span>Otevře jednoduchý editor, kde soubor můžeš upravit – víc o něm hned pod tabulkou.</span>
+        <code class="path">nano soubor</code><span>Otevře jednoduchý editor, kde soubor můžeš upravit - víc o něm hned pod tabulkou.</span>
         <code class="path">sudo příkaz</code><span>Spustí příkaz jako „šéf" počítače, s nejvyššími právy. Server se tě zeptá na heslo.</span>
         <code class="path">man příkaz</code><span>Zobrazí nápovědu, kdyby sis nebyl jistý, co příkaz vlastně dělá. Zavřeš klávesou <kbd>Q</kbd>.</span>
         <code class="path">clear</code><span>Smaže všechno napsané z obrazovky, ať v tom neplaveš.</span>
@@ -587,7 +587,7 @@
       </div>
 
       <h3 style="font-family:var(--sans); font-weight:500; font-size:16px; margin:28px 0 12px;">Jak funguje nano</h3>
-      <p>Nano je editor textu, co se ti otevře přímo v terminálu – třeba v kroku 4. Žádná myš, žádné tlačítko „Uložit", všechno jde přes klávesnici. Dole na obrazovce ti nano pořád ukazuje, co umí – znak <kbd>^</kbd> tam znamená klávesu <kbd>Ctrl</kbd>.</p>
+      <p>Nano je editor textu, co se ti otevře přímo v terminálu - třeba v kroku 4. Žádná myš, žádné tlačítko „Uložit", všechno jde přes klávesnici. Dole na obrazovce ti nano pořád ukazuje, co umí - znak <kbd>^</kbd> tam znamená klávesu <kbd>Ctrl</kbd>.</p>
       <div class="cmd-table">
         <kbd>Ctrl+O</kbd><span>Uloží to, co jsi napsal. Pak ještě stiskni <kbd>Enter</kbd>, aby to potvrdil.</span>
         <kbd>Ctrl+X</kbd><span>Zavře nano. Pokud jsi zapomněl uložit, sám se zeptá.</span>
@@ -598,20 +598,20 @@
       </div>
       <div class="callout"><strong>Pozor:</strong> ve Windows znamená <kbd>Ctrl+X</kbd> „vyjmout". V nano ale „zavřít editor"! Zkopírovaný text (třeba svůj klíč) do nano vložíš obyčejným kliknutím pravým tlačítkem myši přímo do okna terminálu.</div>
 
-      <div class="callout"><strong>Tip:</strong> napiš první písmena a stiskni <kbd>Tab</kbd> – zbytek jména souboru nebo složky ti terminál dopíše sám. Šipka <kbd>↑</kbd> ti vrátí příkaz, co jsi napsal naposledy, takže ho nemusíš psát znovu. A když se něco zasekne nebo běží moc dlouho, <kbd>Ctrl+C</kbd> to zastaví.</div>
+      <div class="callout"><strong>Tip:</strong> napiš první písmena a stiskni <kbd>Tab</kbd> - zbytek jména souboru nebo složky ti terminál dopíše sám. Šipka <kbd>↑</kbd> ti vrátí příkaz, co jsi napsal naposledy, takže ho nemusíš psát znovu. A když se něco zasekne nebo běží moc dlouho, <kbd>Ctrl+C</kbd> to zastaví.</div>
 
-      <p class="aside">Tohle všechno platí, až budeš <strong>přihlášený na serveru</strong> (viz krok 1 níže). Do té doby píšeš příkazy ve Windows PowerShellu na svém počítači – a to je úplně jiná sada slovíček.</p>
+      <p class="aside">Tohle všechno platí, až budeš <strong>přihlášený na serveru</strong> (viz krok 1 níže). Do té doby píšeš příkazy ve Windows PowerShellu na svém počítači - a to je úplně jiná sada slovíček.</p>
     </section>
 
     <section id="slovnicek">
       <h2>Slovníček pojmů</h2>
-      <p>Pár slov, co v návodu padají pořád dokola – ať víš, co znamenají, než se v nich ztratíš.</p>
+      <p>Pár slov, co v návodu padají pořád dokola - ať víš, co znamenají, než se v nich ztratíš.</p>
       <div class="cmd-table">
-        <strong>Terminál</strong><span>Okno, kam se příkazy jen píšou – žádná myš, žádné ikonky.</span>
+        <strong>Terminál</strong><span>Okno, kam se příkazy jen píšou - žádná myš, žádné ikonky.</span>
         <strong>Shell</strong><span>Program, který tvoje příkazy čte a spouští. Na Linuxu nejčastěji <strong>bash</strong>.</span>
-        <strong>Root</strong><span>„Superuživatel" – účet s neomezenými právy na serveru.</span>
+        <strong>Root</strong><span>„Superuživatel" - účet s neomezenými právy na serveru.</span>
         <strong>Sudo</strong><span>Spustí jeden příkaz s právy roota. Server se zeptá na tvé heslo.</span>
-        <strong>Balíček</strong><span>Nainstalovatelný program nebo knihovna – anglicky „package".</span>
+        <strong>Balíček</strong><span>Nainstalovatelný program nebo knihovna - anglicky „package".</span>
         <strong>Repozitář</strong><span>„Obchod" s balíčky, odkud si je příkaz <code class="path">apt</code> stahuje.</span>
         <strong>Proces</strong><span>Spuštěný program, který zrovna běží na serveru.</span>
         <strong>Server / klient</strong><span>Server čeká na připojení (<code class="path">vpslab.cz</code>), klient se připojuje (tvůj počítač).</span>
@@ -623,7 +623,7 @@
 
     <section id="opravneni">
       <h2>Oprávnění souborů</h2>
-      <p>Když si na serveru napíšeš <code class="path">ls -la</code>, u každého souboru uvidíš divný řetězec jako <code class="path">-rw-r--r--</code>. To je zápis, kdo se souborem co smí dělat – a přesně tohle nastavuješ příkazem <code class="path">chmod</code> (třeba u <code class="path">authorized_keys</code> v kroku 4).</p>
+      <p>Když si na serveru napíšeš <code class="path">ls -la</code>, u každého souboru uvidíš divný řetězec jako <code class="path">-rw-r--r--</code>. To je zápis, kdo se souborem co smí dělat - a přesně tohle nastavuješ příkazem <code class="path">chmod</code> (třeba u <code class="path">authorized_keys</code> v kroku 4).</p>
 
       <p class="note">Deset znaků se čte po skupinách:</p>
       <div class="cmd-table">
@@ -633,14 +633,14 @@
         <code class="path">r--</code><span>Co smí <strong>všichni ostatní</strong> na serveru.</span>
       </div>
 
-      <p class="note"><code class="path">chmod</code> stejná práva nastavuje jen čísly místo písmenek: <code class="path">4</code> = číst, <code class="path">2</code> = zapisovat, <code class="path">1</code> = spouštět – a sčítají se. Proto <code class="path">600</code> znamená „vlastník čte a zapisuje (4+2), nikdo jiný nic".</p>
+      <p class="note"><code class="path">chmod</code> stejná práva nastavuje jen čísly místo písmenek: <code class="path">4</code> = číst, <code class="path">2</code> = zapisovat, <code class="path">1</code> = spouštět - a sčítají se. Proto <code class="path">600</code> znamená „vlastník čte a zapisuje (4+2), nikdo jiný nic".</p>
       <div class="cmd-table">
-        <code class="path">chmod 600 soubor</code><span>Jen vlastník čte a zapisuje – přesně to, co chceš u <code class="path">~/.ssh/authorized_keys</code> (krok 4).</span>
-        <code class="path">chmod 700 slozka</code><span>Jen vlastník může do složky vstoupit a číst ji – používá se u <code class="path">~/.ssh</code>.</span>
+        <code class="path">chmod 600 soubor</code><span>Jen vlastník čte a zapisuje - přesně to, co chceš u <code class="path">~/.ssh/authorized_keys</code> (krok 4).</span>
+        <code class="path">chmod 700 slozka</code><span>Jen vlastník může do složky vstoupit a číst ji - používá se u <code class="path">~/.ssh</code>.</span>
         <code class="path">chmod +x skript</code><span>Přidá právo spouštět soubor jako program nebo skript.</span>
       </div>
 
-      <div class="callout"><strong>Proč na tom záleží:</strong> pokud by byl <code class="path">authorized_keys</code> čitelný i pro ostatní uživatele na serveru, SSH ho z bezpečnostních důvodů <strong>odmítne použít</strong> – proto se v kroku 4 nastavuje <code class="path">chmod 600</code>.</div>
+      <div class="callout"><strong>Proč na tom záleží:</strong> pokud by byl <code class="path">authorized_keys</code> čitelný i pro ostatní uživatele na serveru, SSH ho z bezpečnostních důvodů <strong>odmítne použít</strong> - proto se v kroku 4 nastavuje <code class="path">chmod 600</code>.</div>
     </section>
 
     <section id="princip">
@@ -692,14 +692,14 @@
         </div>
       </figure>
 
-      <p><strong class="priv">Privátní klíč</strong> nikdy neopouští tvůj počítač a nikomu ho neposíláš – volitelně ho chráníš heslem (passphrase). Veřejný klíč naopak nahraješ na server a sám o sobě k ničemu nevede.</p>
+      <p><strong class="priv">Privátní klíč</strong> nikdy neopouští tvůj počítač a nikomu ho neposíláš - volitelně ho chráníš heslem (passphrase). Veřejný klíč naopak nahraješ na server a sám o sobě k ničemu nevede.</p>
       <p class="aside">Mimochodem: místo příkazu <code class="path">ssh</code> lze použít i program PuTTY a soubory se kopírují příkazem <code class="path">scp</code>, taky z PowerShellu.</p>
     </section>
 
     <section id="krok1">
       <h2><span class="num">1</span>První přihlášení heslem</h2>
       <div class="step">
-        <p class="note">Ověříme, že účet funguje – přihlásíš se klasicky heslem a uvidíš uvítací banner VPSLabu.</p>
+        <p class="note">Ověříme, že účet funguje - přihlásíš se klasicky heslem a uvidíš uvítací banner VPSLabu.</p>
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
@@ -715,12 +715,12 @@
     <section id="krok2">
       <h2><span class="num">2</span>Vygenerování klíče</h2>
       <div class="step">
-        <p class="note">Tenhle krok děláš na svém počítači, ne na serveru – vytvoří se dvojice klíčů typu ed25519.</p>
+        <p class="note">Tenhle krok děláš na svém počítači, ne na serveru - vytvoří se dvojice klíčů typu ed25519.</p>
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh-keygen</span> <span class="f">-t</span> ed25519 <span class="f">-C</span> <span class="s">"jmeno.prijmeni@vpslab.cz"</span></pre>
         </div>
-        <div class="callout"><strong>Pozor:</strong> <code class="path">-C</code> musí být velké C – je to jen popisek klíče. Malé <code class="path">-c</code> znamená něco jiného a skončí to chybou <code class="path">Too many arguments</code>.</div>
+        <div class="callout"><strong>Pozor:</strong> <code class="path">-C</code> musí být velké C - je to jen popisek klíče. Malé <code class="path">-c</code> znamená něco jiného a skončí to chybou <code class="path">Too many arguments</code>.</div>
         <p class="note">Cestu k souboru potvrď <kbd>Enter</kbd> (výchozí <code class="path">C:\Users\&lt;uživatel&gt;\.ssh\id_ed25519</code>).</p>
         <p class="note"><strong>Passphrase</strong> je volitelná: chrání <strong class="priv">privátní klíč</strong>, i kdyby ti ho někdo ukradl, ale budeš ji pak zadávat při každém připojení.</p>
       </div>
@@ -745,7 +745,7 @@
       <h2><span class="num">4</span>Nahrání veřejného klíče na server</h2>
 
       <div class="step">
-        <h3>Varianta A – jedním příkazem</h3>
+        <h3>Varianta A - jedním příkazem</h3>
         <p class="note">Pošle veřejný klíč rovnou na server a připíše ho do <code class="path">authorized_keys</code>. Naposledy se ještě zeptá na heslo.</p>
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
@@ -754,7 +754,7 @@
       </div>
 
       <div class="step">
-        <h3>Varianta B – ručně přes schránku</h3>
+        <h3>Varianta B - ručně přes schránku</h3>
         <p class="note">Zkopíruj veřejný klíč do schránky:</p>
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
@@ -809,7 +809,7 @@
 
     <section id="sprava-serveru">
       <h2>Práce na serveru</h2>
-      <p>Jsi přihlášený a vše funguje – co dál? Pár příkazů, co se hodí, až budeš na serveru něco spravovat nebo instalovat.</p>
+      <p>Jsi přihlášený a vše funguje - co dál? Pár příkazů, co se hodí, až budeš na serveru něco spravovat nebo instalovat.</p>
       <div class="cmd-table">
         <code class="path">df -h</code><span>Kolik místa zbývá na disku (<code class="path">-h</code> = čitelně, v GB místo bajtů).</span>
         <code class="path">du -sh *</code><span>Kolik místa zabírá každá položka v aktuální složce.</span>
@@ -817,25 +817,25 @@
         <code class="path">top</code><span>Živý přehled toho, co běží a kolik to zabírá výkonu. Zavřeš klávesou <kbd>Q</kbd>.</span>
         <code class="path">sudo apt update</code><span>Stáhne seznam dostupných balíčků. Spouštěj vždy před instalací.</span>
         <code class="path">sudo apt install balicek</code><span>Nainstaluje balíček (program) pod daným jménem.</span>
-        <code class="path">systemctl status sluzba</code><span>Zobrazí, jestli nějaká služba běží – stejně jako u <code class="path">ssh</code> v kroku 5.</span>
+        <code class="path">systemctl status sluzba</code><span>Zobrazí, jestli nějaká služba běží - stejně jako u <code class="path">ssh</code> v kroku 5.</span>
         <code class="path">sudo systemctl restart sluzba</code><span>Restartuje službu, třeba po změně nastavení.</span>
       </div>
-      <p class="aside">Příkaz <code class="path">apt</code> funguje na distribucích jako Ubuntu/Debian (tedy i na VPSLabu) – na jiném Linuxu by se jmenoval jinak.</p>
+      <p class="aside">Příkaz <code class="path">apt</code> funguje na distribucích jako Ubuntu/Debian (tedy i na VPSLabu) - na jiném Linuxu by se jmenoval jinak.</p>
     </section>
 
     <section id="tmux">
       <h2>Neztrať rozdělanou práci</h2>
-      <p>SSH spojení se může kdykoliv přerušit – zavřeš notebook, vypadne wifi, usneš. A s ním umře i cokoliv, co jsi na serveru zrovna spustil. Třeba si zkusíš pustit vlastní webový server ve složce <code class="path">~/web</code> (viz Bonus níže) a chceš, aby běžel dál, i když se odpojíš. Přesně na to je <code class="path">tmux</code>.</p>
+      <p>SSH spojení se může kdykoliv přerušit - zavřeš notebook, vypadne wifi, usneš. A s ním umře i cokoliv, co jsi na serveru zrovna spustil. Třeba si zkusíš pustit vlastní webový server ve složce <code class="path">~/web</code> (viz Bonus níže) a chceš, aby běžel dál, i když se odpojíš. Přesně na to je <code class="path">tmux</code>.</p>
 
       <div class="cmd-table">
         <code class="path">tmux</code><span>Spustí novou „virtuální obrazovku", která přežije i odpojení.</span>
-        <span><kbd>Ctrl+B</kbd> <kbd>D</kbd></span><span>Odpojí se od session (detach) – ta běží dál na pozadí.</span>
+        <span><kbd>Ctrl+B</kbd> <kbd>D</kbd></span><span>Odpojí se od session (detach) - ta běží dál na pozadí.</span>
         <code class="path">tmux attach</code><span>Znovu se připojí k poslední rozdělané session.</span>
         <code class="path">tmux ls</code><span>Vypíše, jaké session zrovna běží.</span>
         <code class="path">exit</code><span>Spuštěné uvnitř tmuxu session úplně ukončí.</span>
       </div>
 
-      <div class="callout"><strong>Příklad:</strong> na serveru spustíš přes <code class="path">tmux</code> příkaz, co má běžet dlouho (třeba webový server). Odpojíš se klávesami <kbd>Ctrl+B</kbd> <kbd>D</kbd>, zavřeš notebook – a příkaz běží dál. Až se zas přihlásíš, napíšeš <code class="path">tmux attach</code> a uvidíš ho přesně tam, kde jsi skončil.</div>
+      <div class="callout"><strong>Příklad:</strong> na serveru spustíš přes <code class="path">tmux</code> příkaz, co má běžet dlouho (třeba webový server). Odpojíš se klávesami <kbd>Ctrl+B</kbd> <kbd>D</kbd>, zavřeš notebook - a příkaz běží dál. Až se zas přihlásíš, napíšeš <code class="path">tmux attach</code> a uvidíš ho přesně tam, kde jsi skončil.</div>
     </section>
 
     <section id="chyby">
@@ -843,7 +843,7 @@
 
       <div class="error-item">
         <p class="msg">ssh-copy-id: příkaz neexistuje</p>
-        <p>Na Windows tento pomocný nástroj není – je jen pro Linux/macOS. Použij variantu A nebo B z kroku 4. Spouštět ho na serveru nedává smysl, klíč je na tvém PC.</p>
+        <p>Na Windows tento pomocný nástroj není - je jen pro Linux/macOS. Použij variantu A nebo B z kroku 4. Spouštět ho na serveru nedává smysl, klíč je na tvém PC.</p>
       </div>
 
       <div class="error-item">
@@ -858,17 +858,17 @@
 
       <div class="error-item">
         <p class="msg">Could not resolve hostname / Permission denied</p>
-        <p>Většinou překlep v uživatelském jméně nebo adrese – zkontroluj <code class="path">jmeno.prijmeni@vpslab.cz</code>. Pozor: při špatném jméně server klíč „přijme“ a stejně nakonec chce heslo. Vypadá to, že klíč nefunguje, ale problém je jinde.</p>
+        <p>Většinou překlep v uživatelském jméně nebo adrese - zkontroluj <code class="path">jmeno.prijmeni@vpslab.cz</code>. Pozor: při špatném jméně server klíč „přijme“ a stejně nakonec chce heslo. Vypadá to, že klíč nefunguje, ale problém je jinde.</p>
       </div>
 
       <div class="error-item">
         <p class="msg">authorized_keys je soubor, ne příkaz</p>
-        <p>Nikdy ho nespouštěj jako program – otevírej ho přes <code class="path">nano</code> nebo prohlížej přes <code class="path">cat</code>.</p>
+        <p>Nikdy ho nespouštěj jako program - otevírej ho přes <code class="path">nano</code> nebo prohlížej přes <code class="path">cat</code>.</p>
       </div>
 
       <div class="error-item">
         <p class="msg">Ladění: ssh -v</p>
-        <p>Ukáže podrobný průběh připojování – který klíč se nabízí a jak server odpovídá:</p>
+        <p>Ukáže podrobný průběh připojování - který klíč se nabízí a jak server odpovídá:</p>
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh</span> <span class="f">-v</span> jmeno.prijmeni@vpslab.cz</pre>
@@ -882,12 +882,12 @@
 
       <div class="error-item">
         <p class="msg">Host key verification failed / REMOTE HOST IDENTIFICATION HAS CHANGED</p>
-        <p>Server si při prvním přihlášení uloží svůj „otisk“ k tobě do počítače. Pokud se příště neshoduje, SSH tě varuje, že se server mohl změnit (nebo se někdo vydává za něj). Pokud víš, že server byl legitimně přeinstalovaný, smaž starý záznam příkazem, který ti SSH samo nabídne ve varování – jinak se radši zeptej, než pokračuješ.</p>
+        <p>Server si při prvním přihlášení uloží svůj „otisk“ k tobě do počítače. Pokud se příště neshoduje, SSH tě varuje, že se server mohl změnit (nebo se někdo vydává za něj). Pokud víš, že server byl legitimně přeinstalovaný, smaž starý záznam příkazem, který ti SSH samo nabídne ve varování - jinak se radši zeptej, než pokračuješ.</p>
       </div>
 
       <div class="error-item">
         <p class="msg">Connection timed out</p>
-        <p>Server vůbec neodpovídá. Zkontroluj, jestli jsi připojený k internetu (případně vypni VPN) a jestli adresu píšeš správně – tahle chyba neznamená problém s klíčem ani heslem.</p>
+        <p>Server vůbec neodpovídá. Zkontroluj, jestli jsi připojený k internetu (případně vypni VPN) a jestli adresu píšeš správně - tahle chyba neznamená problém s klíčem ani heslem.</p>
       </div>
     </section>
 
@@ -939,11 +939,11 @@
 
         <div class="bonus-card">
           <h3>VS Code a Remote-SSH</h3>
-          <p>Nainstaluj rozšíření <strong>Remote-SSH</strong> a připoj se na <code class="path">jmeno.prijmeni@vpslab.cz</code> – VS Code použije stejný klíč a otevře vzdálenou složku jako lokální projekt.</p>
+          <p>Nainstaluj rozšíření <strong>Remote-SSH</strong> a připoj se na <code class="path">jmeno.prijmeni@vpslab.cz</code> - VS Code použije stejný klíč a otevře vzdálenou složku jako lokální projekt.</p>
         </div>
 
         <div class="bonus-card">
-          <h3>Grafický přenos souborů – WinSCP</h3>
+          <h3>Grafický přenos souborů - WinSCP</h3>
           <p>Když ti terminál a <code class="path">scp</code> nesedí, stáhni si <strong>WinSCP</strong>. Zadej Host name <code class="path">vpslab.cz</code>, User <code class="path">jmeno.prijmeni</code> a v Advanced → SSH → Authentication vyber jako privátní klíč soubor <code class="path">id_ed25519</code>. Pak přetahuješ soubory myší mezi počítačem a serverem, žádné příkazy.</p>
         </div>
       </div>
@@ -952,7 +952,7 @@
     <section id="cviceni">
       <h2>Vyzkoušej si sám</h2>
       <div class="callout">
-        <p style="margin-bottom:12px;">Než návod zavřeš, zkus si na serveru tohle – spojí to dohromady skoro všechno z Linux základů:</p>
+        <p style="margin-bottom:12px;">Než návod zavřeš, zkus si na serveru tohle - spojí to dohromady skoro všechno z Linux základů:</p>
         <ol style="margin:0; padding-left:20px;">
           <li>Vytvoř si na serveru složku <code class="path">test</code> a vejdi do ní.</li>
           <li>Vytvoř soubor <code class="path">pokus.txt</code> a napiš do něj jednu větu přes <code class="path">nano</code>.</li>
@@ -965,7 +965,7 @@
 
     <section id="bezpecnost" class="security">
       <h2>Bezpečnostní upozornění</h2>
-      <p><strong class="priv">Privátní klíč nikdy nikam nekopíruj ani neposílej</strong> – ani kamarádovi, ani do e-mailu, ani na GitHub. Je to jediná věc, která chrání tvůj účet.</p>
+      <p><strong class="priv">Privátní klíč nikdy nikam nekopíruj ani neposílej</strong> - ani kamarádovi, ani do e-mailu, ani na GitHub. Je to jediná věc, která chrání tvůj účet.</p>
       <p>Na VPSLabu běží účty všech spolužáků na jednom stroji a vše je logované. Útok na server nebo na účty spolužáků znamená okamžitý konec přístupu k účtu.</p>
     </section>
 
