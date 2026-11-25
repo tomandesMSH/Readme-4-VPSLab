@@ -536,6 +536,8 @@
     <p class="toc-label">Obsah</p>
     <ol>
       <li><a href="#linux-zaklady">Linux základy</a></li>
+      <li><a href="#slovnicek">Slovníček pojmů</a></li>
+      <li><a href="#opravneni">Oprávnění souborů</a></li>
       <li><a href="#princip">Princip</a></li>
       <li><a href="#krok1">1. Heslo</a></li>
       <li><a href="#krok2">2. Vygenerování</a></li>
@@ -543,6 +545,7 @@
       <li><a href="#krok4">4. Nahrání</a></li>
       <li><a href="#krok5">5. Kontrola na serveru</a></li>
       <li><a href="#krok6">6. Přihlášení</a></li>
+      <li><a href="#sprava-serveru">Práce na serveru</a></li>
       <li><a href="#chyby">Časté chyby</a></li>
       <li><a href="#bonus">Bonus</a></li>
       <li><a href="#bezpecnost">Bezpečnost</a></li>
@@ -587,6 +590,46 @@
       <div class="callout"><strong>Tip:</strong> napiš první písmena a stiskni <kbd>Tab</kbd> – zbytek jména souboru nebo složky ti terminál dopíše sám. Šipka <kbd>↑</kbd> ti vrátí příkaz, co jsi napsal naposledy, takže ho nemusíš psát znovu. A když se něco zasekne nebo běží moc dlouho, <kbd>Ctrl+C</kbd> to zastaví.</div>
 
       <p class="aside">Tohle všechno platí, až budeš <strong>přihlášený na serveru</strong> (viz krok 1 níže). Do té doby píšeš příkazy ve Windows PowerShellu na svém počítači – a to je úplně jiná sada slovíček.</p>
+    </section>
+
+    <section id="slovnicek">
+      <h2>Slovníček pojmů</h2>
+      <p>Pár slov, co v návodu padají pořád dokola – ať víš, co znamenají, než se v nich ztratíš.</p>
+      <div class="cmd-table">
+        <strong>Terminál</strong><span>Okno, kam se příkazy jen píšou – žádná myš, žádné ikonky.</span>
+        <strong>Shell</strong><span>Program, který tvoje příkazy čte a spouští. Na Linuxu nejčastěji <strong>bash</strong>.</span>
+        <strong>Root</strong><span>„Superuživatel" – účet s neomezenými právy na serveru.</span>
+        <strong>Sudo</strong><span>Spustí jeden příkaz s právy roota. Server se zeptá na tvé heslo.</span>
+        <strong>Balíček</strong><span>Nainstalovatelný program nebo knihovna – anglicky „package".</span>
+        <strong>Repozitář</strong><span>„Obchod" s balíčky, odkud si je příkaz <code class="path">apt</code> stahuje.</span>
+        <strong>Proces</strong><span>Spuštěný program, který zrovna běží na serveru.</span>
+        <strong>Server / klient</strong><span>Server čeká na připojení (<code class="path">vpslab.cz</code>), klient se připojuje (tvůj počítač).</span>
+        <strong>SSH</strong><span>Zabezpečený způsob, jak se na server vzdáleně přihlásit a ovládat ho.</span>
+        <code class="path">~</code><span>Zkratka pro tvůj domovský adresář na serveru.</span>
+        <strong>Prompt</strong><span>Řádek, kam píšeš příkazy. Znak <code class="path">$</code> znamená běžného uživatele, <code class="path">#</code> roota.</span>
+      </div>
+    </section>
+
+    <section id="opravneni">
+      <h2>Oprávnění souborů</h2>
+      <p>Když si na serveru napíšeš <code class="path">ls -la</code>, u každého souboru uvidíš divný řetězec jako <code class="path">-rw-r--r--</code>. To je zápis, kdo se souborem co smí dělat – a přesně tohle nastavuješ příkazem <code class="path">chmod</code> (třeba u <code class="path">authorized_keys</code> v kroku 4).</p>
+
+      <p class="note">Deset znaků se čte po skupinách:</p>
+      <div class="cmd-table">
+        <code class="path">-</code><span>První znak je typ: <code class="path">-</code> obyčejný soubor, <code class="path">d</code> složka.</span>
+        <code class="path">rw-</code><span>Co smí <strong>vlastník</strong> souboru: <code class="path">r</code> číst, <code class="path">w</code> zapisovat, <code class="path">x</code> spouštět.</span>
+        <code class="path">r--</code><span>Co smí <strong>skupina</strong>, do které vlastník patří.</span>
+        <code class="path">r--</code><span>Co smí <strong>všichni ostatní</strong> na serveru.</span>
+      </div>
+
+      <p class="note"><code class="path">chmod</code> stejná práva nastavuje jen čísly místo písmenek: <code class="path">4</code> = číst, <code class="path">2</code> = zapisovat, <code class="path">1</code> = spouštět – a sčítají se. Proto <code class="path">600</code> znamená „vlastník čte a zapisuje (4+2), nikdo jiný nic".</p>
+      <div class="cmd-table">
+        <code class="path">chmod 600 soubor</code><span>Jen vlastník čte a zapisuje – přesně to, co chceš u <code class="path">~/.ssh/authorized_keys</code> (krok 4).</span>
+        <code class="path">chmod 700 slozka</code><span>Jen vlastník může do složky vstoupit a číst ji – používá se u <code class="path">~/.ssh</code>.</span>
+        <code class="path">chmod +x skript</code><span>Přidá právo spouštět soubor jako program nebo skript.</span>
+      </div>
+
+      <div class="callout"><strong>Proč na tom záleží:</strong> pokud by byl <code class="path">authorized_keys</code> čitelný i pro ostatní uživatele na serveru, SSH ho z bezpečnostních důvodů <strong>odmítne použít</strong> – proto se v kroku 4 nastavuje <code class="path">chmod 600</code>.</div>
     </section>
 
     <section id="princip">
@@ -753,6 +796,22 @@
       </div>
     </section>
 
+    <section id="sprava-serveru">
+      <h2>Práce na serveru</h2>
+      <p>Jsi přihlášený a vše funguje – co dál? Pár příkazů, co se hodí, až budeš na serveru něco spravovat nebo instalovat.</p>
+      <div class="cmd-table">
+        <code class="path">df -h</code><span>Kolik místa zbývá na disku (<code class="path">-h</code> = čitelně, v GB místo bajtů).</span>
+        <code class="path">du -sh *</code><span>Kolik místa zabírá každá položka v aktuální složce.</span>
+        <code class="path">ps aux</code><span>Vypíše všechny spuštěné procesy (programy) na serveru.</span>
+        <code class="path">top</code><span>Živý přehled toho, co běží a kolik to zabírá výkonu. Zavřeš klávesou <kbd>Q</kbd>.</span>
+        <code class="path">sudo apt update</code><span>Stáhne seznam dostupných balíčků. Spouštěj vždy před instalací.</span>
+        <code class="path">sudo apt install balicek</code><span>Nainstaluje balíček (program) pod daným jménem.</span>
+        <code class="path">systemctl status sluzba</code><span>Zobrazí, jestli nějaká služba běží – stejně jako u <code class="path">ssh</code> v kroku 5.</span>
+        <code class="path">sudo systemctl restart sluzba</code><span>Restartuje službu, třeba po změně nastavení.</span>
+      </div>
+      <p class="aside">Příkaz <code class="path">apt</code> funguje na distribucích jako Ubuntu/Debian (tedy i na VPSLabu) – na jiném Linuxu by se jmenoval jinak.</p>
+    </section>
+
     <section id="chyby">
       <h2>Časté chyby</h2>
 
@@ -788,6 +847,21 @@
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh</span> <span class="f">-v</span> jmeno.prijmeni@vpslab.cz</pre>
         </div>
+      </div>
+
+      <div class="error-item">
+        <p class="msg">Permission denied (publickey)</p>
+        <p>Server odmítl tvůj klíč. Většinou chybí v <code class="path">authorized_keys</code> na serveru (zopakuj krok 4), nebo zkoušíš jiný klíč, než jaký jsi tam nahrál.</p>
+      </div>
+
+      <div class="error-item">
+        <p class="msg">Host key verification failed / REMOTE HOST IDENTIFICATION HAS CHANGED</p>
+        <p>Server si při prvním přihlášení uloží svůj „otisk“ k tobě do počítače. Pokud se příště neshoduje, SSH tě varuje, že se server mohl změnit (nebo se někdo vydává za něj). Pokud víš, že server byl legitimně přeinstalovaný, smaž starý záznam příkazem, který ti SSH samo nabídne ve varování – jinak se radši zeptej, než pokračuješ.</p>
+      </div>
+
+      <div class="error-item">
+        <p class="msg">Connection timed out</p>
+        <p>Server vůbec neodpovídá. Zkontroluj, jestli jsi připojený k internetu (případně vypni VPN) a jestli adresu píšeš správně – tahle chyba neznamená problém s klíčem ani heslem.</p>
       </div>
     </section>
 
