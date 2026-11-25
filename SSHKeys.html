@@ -547,6 +547,7 @@
       <li><a href="#linux-zaklady">Linux základy</a></li>
       <li><a href="#slovnicek">Slovníček pojmů</a></li>
       <li><a href="#opravneni">Oprávnění souborů</a></li>
+      <li><a href="#bash-triky">Roury, přesměrování a hledání</a></li>
       <li><a href="#princip">Princip</a></li>
       <li><a href="#krok1">1. Heslo</a></li>
       <li><a href="#krok2">2. Vygenerování</a></li>
@@ -641,6 +642,22 @@
       </div>
 
       <div class="callout"><strong>Proč na tom záleží:</strong> pokud by byl <code class="path">authorized_keys</code> čitelný i pro ostatní uživatele na serveru, SSH ho z bezpečnostních důvodů <strong>odmítne použít</strong> - proto se v kroku 4 nastavuje <code class="path">chmod 600</code>.</div>
+    </section>
+
+    <section id="bash-triky">
+      <h2>Roury, přesměrování a hledání</h2>
+      <p>Pravé kouzlo Linuxu je v tom, že příkazy jdou spojovat dohromady - výstup jednoho pošleš jako vstup dalšímu, nebo ho rovnou uložíš do souboru.</p>
+
+      <div class="cmd-table">
+        <code class="path">prikaz1 | prikaz2</code><span>Roura (pipe) - výstup prvního příkazu pošle jako vstup druhému.</span>
+        <code class="path">prikaz > soubor</code><span>Přesměruje výstup do souboru. Pokud soubor existuje, jeho obsah přepíše.</span>
+        <code class="path">prikaz >> soubor</code><span>Totéž, ale přidá na konec souboru - nic nepřepíše.</span>
+        <code class="path">grep "text" soubor</code><span>Najde řádky obsahující „text" v souboru.</span>
+        <code class="path">ls | grep ".txt"</code><span>Příklad roury: vypíše jen soubory, co mají v názvu „.txt".</span>
+        <code class="path">*</code><span>Žolík (wildcard) - nahrazuje „cokoliv". <code class="path">ls *.txt</code> vypíše všechny <code class="path">.txt</code> soubory najednou.</span>
+      </div>
+
+      <div class="callout"><strong>Příklad:</strong> chceš zkontrolovat, jestli je tvůj klíč v <code class="path">authorized_keys</code>, ale soubor je dlouhý? Spoj <code class="path">cat</code> s <code class="path">grep</code> přes rouru: <code class="path">cat ~/.ssh/authorized_keys | grep jmeno.prijmeni</code> vypíše jen řádek, co obsahuje tvoje jméno.</div>
     </section>
 
     <section id="princip">
@@ -904,6 +921,17 @@
             <div class="bar"><span class="tag"></span><span class="icons"></span></div>
             <pre><span class="k">scp</span> jmeno.prijmeni@vpslab.cz:~/web/index.html .</pre>
           </div>
+        </div>
+
+        <div class="bonus-card">
+          <h3>Nahrávání webu přes git</h3>
+          <p>Když máš web ve vlastním git repozitáři (třeba na GitHubu), stačí si ho na serveru jen stáhnout - místo ručního kopírování souborů:</p>
+          <div class="codeblock" data-lang="bash">
+            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+            <pre><span class="k">git</span> clone https://github.com/jmeno/repo.git ~/web
+<span class="k">cd</span> ~/web <span class="f">&&</span> <span class="k">git</span> pull</pre>
+          </div>
+          <p><code class="path">git clone</code> stáhne repozitář poprvé, <code class="path">git pull</code> pak natáhne nejnovější verzi při každé změně.</p>
         </div>
 
         <div class="bonus-card">
