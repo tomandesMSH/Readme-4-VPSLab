@@ -391,6 +391,13 @@
     overflow:hidden;
     margin:12px 0 16px;
   }
+  .codeblock[data-lang="output"]{
+    background:var(--surface);
+    border-style:dashed;
+  }
+  .codeblock[data-lang="output"] pre strong{
+    color:var(--text);
+  }
   .codeblock .bar{
     display:flex;
     align-items:center;
@@ -418,6 +425,12 @@
   }
   .codeblock .bar .tag .os-badge.win{color:#7ec8ff; background:rgba(126,200,255,0.12);}
   .codeblock .bar .tag .os-badge.linux{color:#f2a93b; background:rgba(242,169,59,0.12);}
+  .codeblock .bar .tag .output-tag{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.02em;
+    color:var(--code-muted);
+  }
   .codeblock .bar .icons{display:flex; gap:4px;}
   .icon-btn{
     background:none;
@@ -721,7 +734,16 @@
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh</span> jmeno.prijmeni@vpslab.cz</pre>
         </div>
-        <p class="note">Zadej heslo → objeví se uvítací banner. Pak se odhlas:</p>
+        <p class="note">Při úplně prvním připojení se tě SSH zeptá, jestli serveru věříš - to je normální, ne chyba:</p>
+        <div class="codeblock" data-lang="output">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre>The authenticity of host 'vpslab.cz (XX.XX.XX.XX)' can't be established.
+ED25519 key fingerprint is SHA256:AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? <strong>yes</strong>
+Warning: Permanently added 'vpslab.cz' to the list of known hosts.
+jmeno.prijmeni@vpslab.cz's password:</pre>
+        </div>
+        <p class="note">Napiš <strong>yes</strong> a potvrď Enterem - při dalších přihlášeních se už ptát nebude. Pak zadej heslo → objeví se uvítací banner. Nakonec se odhlas:</p>
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">exit</span></pre>
@@ -740,6 +762,30 @@
         <div class="callout"><strong>Pozor:</strong> <code class="path">-C</code> musí být velké C - je to jen popisek klíče. Malé <code class="path">-c</code> znamená něco jiného a skončí to chybou <code class="path">Too many arguments</code>.</div>
         <p class="note">Cestu k souboru potvrď <kbd>Enter</kbd> (výchozí <code class="path">C:\Users\&lt;uživatel&gt;\.ssh\id_ed25519</code>).</p>
         <p class="note"><strong>Passphrase</strong> je volitelná: chrání <strong class="priv">privátní klíč</strong>, i kdyby ti ho někdo ukradl, ale budeš ji pak zadávat při každém připojení.</p>
+        <p class="note">Výsledek bude vypadat nějak takto - důležité jsou hlavně první dva řádky s cestou:</p>
+        <div class="codeblock" data-lang="output">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre>Generating public/private ed25519 key pair.
+Enter file in which to save the key (C:\Users\jmeno/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+<strong>Your identification has been saved in C:\Users\jmeno/.ssh/id_ed25519</strong>
+<strong>Your public key has been saved in C:\Users\jmeno/.ssh/id_ed25519.pub</strong>
+The key fingerprint is:
+SHA256:AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abc jmeno.prijmeni@vpslab.cz
+The key's randomart image is:
++--[ED25519 256]--+
+|      . .+o.     |
+|     . + +.o     |
+|      o + +.     |
+|   . . o =. .    |
+|  . o . S.o      |
+| . + . +.*       |
+|  + . ..=.E      |
+| . o  ..+.o      |
+|  ....o+o.       |
++----[SHA256]-----+</pre>
+        </div>
       </div>
     </section>
 
@@ -804,7 +850,20 @@
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">sudo</span> systemctl status ssh</pre>
         </div>
-        <p class="note">Stav musí být <code class="path">active (running)</code>.</p>
+        <div class="codeblock" data-lang="output">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre>● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     <strong>Active: active (running)</strong> since Mon 2024-01-01 08:00:00 UTC; 2 weeks ago
+       Docs: man:sshd(8)
+   Main PID: 512 (sshd)
+      Tasks: 1 (limit: 4617)
+     Memory: 4.2M
+        CPU: 102ms
+     CGroup: /system.slice/ssh.service
+             └─512 sshd: /usr/sbin/sshd -D</pre>
+        </div>
+        <p class="note">Ve změti řádků hledej hlavně <code class="path">Active:</code> - musí tam být <code class="path">active (running)</code>.</p>
       </div>
     </section>
 
@@ -889,6 +948,18 @@
         <div class="codeblock" data-lang="powershell">
           <div class="bar"><span class="tag"></span><span class="icons"></span></div>
           <pre><span class="k">ssh</span> <span class="f">-v</span> jmeno.prijmeni@vpslab.cz</pre>
+        </div>
+        <p>Vypíše toho hodně, ale ve skutečnosti hledáš jen dva řádky - jestli se vůbec nabídl tvůj klíč, a jestli ověření prošlo:</p>
+        <div class="codeblock" data-lang="output">
+          <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+          <pre>OpenSSH_for_Windows_8.6p1, LibreSSL 3.4.3
+debug1: Connecting to vpslab.cz port 22.
+debug1: Connection established.
+...
+<strong>debug1: Offering public key: C:\Users\jmeno/.ssh/id_ed25519 ED25519 SHA256:AbCd...</strong>
+debug1: Server accepts key: ...
+<strong>debug1: Authentication succeeded (publickey).</strong>
+Authenticated to vpslab.cz ([XX.XX.XX.XX]:22).</pre>
         </div>
       </div>
 
@@ -1054,6 +1125,10 @@
     if(!bar || !pre) return;
 
     var lang = block.getAttribute('data-lang') || 'shell';
+    if(lang === 'output'){
+      tag.innerHTML = '<span class="output-tag">Výstup</span>';
+      return;
+    }
     var os = OS_BY_LANG[lang] || {cls:'win', icon:WIN_ICON, label:'Windows'};
     tag.innerHTML = '<span class="os-badge ' + os.cls + '">' + os.icon + '<span>' + os.label + '</span></span>';
 
