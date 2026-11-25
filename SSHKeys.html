@@ -111,7 +111,15 @@
     font-size:clamp(36px, 4.4vw, 48px);
     line-height:1.08;
     letter-spacing:-0.02em;
-    margin-bottom:16px;
+    margin-bottom:6px;
+  }
+  p.subtitle{
+    font-family:var(--serif);
+    font-weight:400;
+    font-style:italic;
+    font-size:20px;
+    color:var(--muted);
+    margin:0 0 16px;
   }
   p.lede{
     font-size:18px;
@@ -506,6 +514,7 @@
   <div class="band-inner">
     <p class="eyebrow"><a href="index.html">&larr; Zpět na README</a> · návod pro VPSLab</p>
     <h1 class="title">SSH klíč místo hesla</h1>
+    <p class="subtitle">a další Linuxové vychytávky</p>
     <p class="lede">Krok za krokem pro Windows a PowerShell: jak vygenerovat SSH klíč a přihlašovat se na školní server bez zadávání hesla.</p>
     <p class="byline">Zpracoval Tomáš Vaněk</p>
   </div>
@@ -546,8 +555,10 @@
       <li><a href="#krok5">5. Kontrola na serveru</a></li>
       <li><a href="#krok6">6. Přihlášení</a></li>
       <li><a href="#sprava-serveru">Práce na serveru</a></li>
+      <li><a href="#tmux">Neztrať rozdělanou práci</a></li>
       <li><a href="#chyby">Časté chyby</a></li>
       <li><a href="#bonus">Bonus</a></li>
+      <li><a href="#cviceni">Vyzkoušej si sám</a></li>
       <li><a href="#bezpecnost">Bezpečnost</a></li>
     </ol>
   </nav>
@@ -812,6 +823,21 @@
       <p class="aside">Příkaz <code class="path">apt</code> funguje na distribucích jako Ubuntu/Debian (tedy i na VPSLabu) – na jiném Linuxu by se jmenoval jinak.</p>
     </section>
 
+    <section id="tmux">
+      <h2>Neztrať rozdělanou práci</h2>
+      <p>SSH spojení se může kdykoliv přerušit – zavřeš notebook, vypadne wifi, usneš. A s ním umře i cokoliv, co jsi na serveru zrovna spustil. Třeba si zkusíš pustit vlastní webový server ve složce <code class="path">~/web</code> (viz Bonus níže) a chceš, aby běžel dál, i když se odpojíš. Přesně na to je <code class="path">tmux</code>.</p>
+
+      <div class="cmd-table">
+        <code class="path">tmux</code><span>Spustí novou „virtuální obrazovku", která přežije i odpojení.</span>
+        <span><kbd>Ctrl+B</kbd> <kbd>D</kbd></span><span>Odpojí se od session (detach) – ta běží dál na pozadí.</span>
+        <code class="path">tmux attach</code><span>Znovu se připojí k poslední rozdělané session.</span>
+        <code class="path">tmux ls</code><span>Vypíše, jaké session zrovna běží.</span>
+        <code class="path">exit</code><span>Spuštěné uvnitř tmuxu session úplně ukončí.</span>
+      </div>
+
+      <div class="callout"><strong>Příklad:</strong> na serveru spustíš přes <code class="path">tmux</code> příkaz, co má běžet dlouho (třeba webový server). Odpojíš se klávesami <kbd>Ctrl+B</kbd> <kbd>D</kbd>, zavřeš notebook – a příkaz běží dál. Až se zas přihlásíš, napíšeš <code class="path">tmux attach</code> a uvidíš ho přesně tam, kde jsi skončil.</div>
+    </section>
+
     <section id="chyby">
       <h2>Časté chyby</h2>
 
@@ -901,9 +927,39 @@
         </div>
 
         <div class="bonus-card">
+          <h3>Nezadávat passphrase pořád dokola</h3>
+          <p>Windows má vestavěnou službu <strong>ssh-agent</strong>, co si jednou zadanou passphrase zapamatuje:</p>
+          <div class="codeblock" data-lang="powershell">
+            <div class="bar"><span class="tag"></span><span class="icons"></span></div>
+            <pre><span class="k">Start-Service</span> ssh-agent
+<span class="k">ssh-add</span> <span class="s">"$env:USERPROFILE\.ssh\id_ed25519"</span></pre>
+          </div>
+          <p><code class="path">Start-Service</code> stačí spustit jednou (služba pak běží i po restartu), <code class="path">ssh-add</code> uděláš po každém přihlášení do Windows.</p>
+        </div>
+
+        <div class="bonus-card">
           <h3>VS Code a Remote-SSH</h3>
           <p>Nainstaluj rozšíření <strong>Remote-SSH</strong> a připoj se na <code class="path">jmeno.prijmeni@vpslab.cz</code> – VS Code použije stejný klíč a otevře vzdálenou složku jako lokální projekt.</p>
         </div>
+
+        <div class="bonus-card">
+          <h3>Grafický přenos souborů – WinSCP</h3>
+          <p>Když ti terminál a <code class="path">scp</code> nesedí, stáhni si <strong>WinSCP</strong>. Zadej Host name <code class="path">vpslab.cz</code>, User <code class="path">jmeno.prijmeni</code> a v Advanced → SSH → Authentication vyber jako privátní klíč soubor <code class="path">id_ed25519</code>. Pak přetahuješ soubory myší mezi počítačem a serverem, žádné příkazy.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cviceni">
+      <h2>Vyzkoušej si sám</h2>
+      <div class="callout">
+        <p style="margin-bottom:12px;">Než návod zavřeš, zkus si na serveru tohle – spojí to dohromady skoro všechno z Linux základů:</p>
+        <ol style="margin:0; padding-left:20px;">
+          <li>Vytvoř si na serveru složku <code class="path">test</code> a vejdi do ní.</li>
+          <li>Vytvoř soubor <code class="path">pokus.txt</code> a napiš do něj jednu větu přes <code class="path">nano</code>.</li>
+          <li>Ověř si obsah souboru přes <code class="path">cat</code>.</li>
+          <li>Zkopíruj si ho zpátky na svůj počítač přes <code class="path">scp</code>.</li>
+          <li>Smaž soubor i složku zpátky na serveru.</li>
+        </ol>
       </div>
     </section>
 
